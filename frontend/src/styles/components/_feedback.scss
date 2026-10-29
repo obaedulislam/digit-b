@@ -1,0 +1,96 @@
+@use '../abstracts' as *;
+
+// Empty / error states ────────────────────────────────────────
+.state {
+  @apply mx-auto flex max-w-md flex-col items-center gap-3 rounded-lg px-6 py-14 text-center;
+  border: 1px dashed rgb(10 12 15 / 0.25);
+  background-color: rgb(255 255 255 / 0.5);
+
+  &__icon {
+    @apply mb-2 grid h-14 w-14 place-items-center rounded-pill bg-ink text-accent;
+  }
+
+  &--error &__icon {
+    background-color: var(--c-danger);
+    color: var(--c-white);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-xl);
+    line-height: 1.2;
+  }
+
+  &__text {
+    color: var(--fg-muted);
+  }
+
+  &__action {
+    @apply mt-3;
+  }
+}
+
+// Skeletons ───────────────────────────────────────────────────
+.skeleton {
+  &::after {
+    background-color: var(--c-paper-2);
+  }
+
+  &::before {
+    background-color: var(--c-paper-2);
+  }
+}
+
+.skeleton-grid {
+  @apply grid gap-6;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+}
+
+.skeleton-text {
+  @apply flex flex-col gap-4;
+}
+
+// Pagination ──────────────────────────────────────────────────
+.pager {
+  &__control {
+    @apply rounded-pill border text-sm font-semibold;
+    @include focus-ring;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    border-color: var(--line);
+    background-color: transparent;
+    color: var(--c-ink);
+    transition:
+      background-color $duration-fast $ease-out,
+      color $duration-fast $ease-out;
+
+    &:hover:not([data-active], :disabled, [data-disabled]) {
+      background-color: var(--c-paper-2);
+    }
+
+    &[data-active] {
+      @apply border-ink bg-ink text-paper;
+    }
+
+    &[data-disabled] {
+      @apply opacity-40;
+    }
+  }
+
+  &__dots {
+    color: var(--c-muted);
+  }
+}
+
+.pager-bar {
+  @apply mt-14 flex flex-col items-center justify-between gap-5 sm:flex-row;
+
+  &__summary {
+    @apply text-sm;
+    color: var(--fg-muted);
+
+    strong {
+      color: var(--fg);
+    }
+  }
+}

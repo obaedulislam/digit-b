@@ -1,0 +1,321 @@
+@use '../abstracts' as *;
+
+// ── Toolbar: search + filters ───────────────────────────────────
+.admin-toolbar {
+  @apply flex flex-col gap-3;
+
+  @include up('lg') {
+    @apply flex-row items-end justify-between gap-6;
+  }
+
+  &__controls {
+    @apply flex flex-wrap items-end gap-3;
+  }
+
+  &__end {
+    @apply flex flex-wrap items-center gap-3;
+  }
+
+  &__clear {
+    @apply pb-3 text-sm;
+    color: var(--c-accent-deep);
+  }
+}
+
+.admin-search {
+  @apply relative;
+  flex: 1 1 14rem;
+  max-width: 20rem;
+  min-width: min(100%, 14rem);
+
+  &__icon {
+    @apply pointer-events-none absolute left-3.5;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--c-muted);
+  }
+
+  &__input {
+    @apply w-full rounded-pill text-sm;
+    min-height: 2.75rem;
+    padding: 0 2.5rem 0 2.5rem;
+    border: 1px solid rgb(10 12 15 / 0.22);
+    background-color: var(--c-white);
+    color: var(--c-ink);
+    transition:
+      border-color $duration-fast $ease-out,
+      box-shadow $duration-fast $ease-out;
+
+    &::placeholder {
+      color: rgb(10 12 15 / 0.5);
+    }
+
+    &:hover {
+      border-color: rgb(10 12 15 / 0.5);
+    }
+
+    &:focus {
+      border-color: var(--c-ink);
+      box-shadow: var(--shadow-focus);
+      outline: none;
+    }
+
+    // hide the browser's own clear icon: we render ours
+    &::-webkit-search-cancel-button {
+      appearance: none;
+    }
+  }
+
+  &__clear {
+    @apply absolute right-2 grid h-8 w-8 place-items-center rounded-pill;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: 0;
+    color: var(--c-muted);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--c-paper-2);
+      color: var(--c-ink);
+    }
+  }
+}
+
+.admin-filter {
+  @apply flex flex-col gap-1;
+
+  &__label {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-muted);
+  }
+
+  &__control {
+    @apply rounded-md text-sm;
+    min-height: 2.75rem;
+    min-width: 8rem;
+    padding: 0 0.75rem;
+    border: 1px solid rgb(10 12 15 / 0.22);
+    background-color: var(--c-white);
+    color: var(--c-ink);
+    max-width: 100%;
+
+    &:hover {
+      border-color: rgb(10 12 15 / 0.5);
+    }
+
+    &:focus {
+      border-color: var(--c-ink);
+      box-shadow: var(--shadow-focus);
+      outline: none;
+    }
+  }
+}
+
+// ── Table ───────────────────────────────────────────────────────
+.admin-table-wrap {
+  @apply overflow-x-auto rounded-lg;
+  background-color: var(--c-white);
+  border: 1px solid var(--line);
+  transition: opacity $duration-fast $ease-out;
+
+  &.is-fetching {
+    opacity: 0.55;
+  }
+}
+
+.admin-table {
+  @apply w-full text-sm;
+  border-collapse: collapse;
+
+  &__th {
+    @apply whitespace-nowrap px-4 py-3 text-left font-mono text-xs font-medium uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-muted);
+    background-color: var(--c-paper);
+    border-bottom: 1px solid var(--line);
+
+    &.is-end {
+      text-align: right;
+    }
+  }
+
+  &__td {
+    @apply px-4 py-3.5 text-left align-middle font-normal;
+    border-bottom: 1px solid var(--line);
+
+    &.is-end {
+      text-align: right;
+    }
+  }
+
+  tbody tr:last-child &__td {
+    border-bottom: 0;
+  }
+
+  tbody tr:hover &__td {
+    background-color: rgb(236 233 223 / 0.35);
+  }
+
+  &__td--primary {
+    min-width: 12rem;
+    max-width: 22rem;
+  }
+
+  &__sort {
+    @apply inline-flex items-center gap-1.5 rounded-sm font-mono text-xs font-medium uppercase;
+    @include focus-ring;
+    letter-spacing: 0.1em;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--c-ink);
+    }
+  }
+
+  &__sort-idle {
+    opacity: 0.45;
+  }
+
+  th[aria-sort='ascending'] .admin-table__sort,
+  th[aria-sort='descending'] .admin-table__sort {
+    color: var(--c-ink);
+  }
+
+  // Secondary columns drop out on small screens; the detail view still shows everything.
+  .hide-below-md {
+    @include down('md') {
+      display: none;
+    }
+  }
+
+  .hide-below-lg {
+    @include down('lg') {
+      display: none;
+    }
+  }
+}
+
+.admin-table-wrap:focus-visible {
+  outline: 2px solid var(--c-ink);
+  outline-offset: 2px;
+}
+
+// Cell composition
+.admin-cell {
+  @apply flex min-w-0 flex-col gap-0.5;
+
+  &__title {
+    @apply font-semibold;
+    color: var(--c-ink);
+    text-decoration: none;
+    text-align: left;
+    overflow-wrap: anywhere;
+
+    &:hover {
+      color: var(--c-accent-deep);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    &--button {
+      @apply rounded-sm;
+      @include focus-ring;
+      background: none;
+      border: 0;
+      padding: 0;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
+
+  &__sub {
+    @apply text-xs;
+    color: var(--fg-muted);
+    overflow-wrap: anywhere;
+  }
+
+  &__time {
+    @apply whitespace-nowrap;
+    color: var(--fg-muted);
+  }
+
+  &__clamp {
+    @include line-clamp(2);
+  }
+}
+
+.admin-row-actions {
+  @apply flex items-center justify-end gap-1;
+}
+
+.admin-icon-btn {
+  @apply grid h-9 w-9 shrink-0 place-items-center rounded-pill no-underline;
+  @include focus-ring;
+  background: none;
+  border: 0;
+  color: var(--c-ink);
+  cursor: pointer;
+  transition: background-color $duration-fast $ease-out;
+
+  &:hover:not(:disabled) {
+    background-color: var(--c-paper-2);
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed opacity-40;
+  }
+
+  &--danger {
+    color: var(--c-danger);
+
+    &:hover:not(:disabled) {
+      background-color: rgb(184 50 28 / 0.1);
+    }
+  }
+}
+
+// ── Status badge: dot + label (never colour alone) ──────────────
+.admin-status {
+  @apply inline-flex items-center gap-2 whitespace-nowrap rounded-pill border px-2.5 py-1 font-mono text-xs uppercase;
+  letter-spacing: 0.06em;
+  border-color: var(--line);
+  background-color: var(--c-white);
+  color: var(--c-ink);
+
+  &__dot {
+    @apply h-2 w-2 rounded-full;
+    background-color: var(--c-muted);
+  }
+
+  &--lime &__dot {
+    background-color: var(--c-accent-strong);
+    box-shadow: 0 0 0 1.5px var(--c-ink);
+  }
+
+  &--deep &__dot {
+    background-color: var(--c-accent-deep);
+  }
+
+  &--ink &__dot {
+    background-color: var(--c-ink);
+  }
+
+  &--warning &__dot {
+    background-color: var(--c-warning);
+  }
+
+  &--success &__dot {
+    background-color: var(--c-success);
+  }
+
+  &--danger &__dot {
+    background-color: var(--c-danger);
+  }
+}

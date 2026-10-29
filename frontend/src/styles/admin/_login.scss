@@ -1,0 +1,72 @@
+@use '../abstracts' as *;
+
+// ── Login: ink brand panel + paper form ─────────────────────────
+.admin-login {
+  @apply min-h-dvh;
+  background-color: var(--c-paper);
+  color: var(--c-ink);
+
+  @include up('lg') {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  }
+
+  &__brand {
+    @apply relative hidden overflow-hidden lg:block;
+    @include dark-surface;
+  }
+
+  &__art {
+    @apply absolute inset-0 h-full w-full;
+    opacity: 0.9;
+    max-width: none;
+  }
+
+  &__brand-copy {
+    @apply absolute inset-x-0 bottom-0 pb-8;
+    font-family: var(--ff-display);
+    font-size: var(--fs-4xl);
+  }
+
+  &__panel {
+    @apply grid place-items-center px-5 py-10;
+  }
+
+  &__card {
+    @apply flex w-full flex-col gap-5;
+    max-width: 26rem;
+  }
+
+  &__eyebrow {
+    @apply mt-6 font-mono text-xs uppercase;
+    letter-spacing: 0.14em;
+    color: var(--c-accent-deep);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-3xl);
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+
+    em {
+      @apply italic;
+      color: var(--c-accent-deep);
+    }
+  }
+
+  &__form {
+    @apply flex flex-col gap-5;
+  }
+
+  &__alert {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__note {
+    @apply text-xs;
+    color: var(--fg-muted);
+  }
+}

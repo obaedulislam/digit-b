@@ -1,0 +1,109 @@
+@use '../abstracts' as *;
+
+// BEM: .btn  .btn__label  .btn__icon  .btn--primary|secondary|ghost|light  .btn--sm|lg  .btn--block
+.btn {
+  @apply relative inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-pill border border-transparent px-6 py-3 font-sans text-sm font-semibold tracking-tight;
+  @include focus-ring;
+  transition:
+    background-color $duration-base $ease-out,
+    color $duration-base $ease-out,
+    border-color $duration-base $ease-out,
+    transform $duration-base $ease-out;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  &__label {
+    @apply relative z-10;
+  }
+
+  &__icon {
+    @apply inline-flex shrink-0 transition-transform;
+    transition-duration: $duration-base;
+    transition-timing-function: $ease-out;
+  }
+
+  &:hover:not(:disabled) &__icon {
+    transform: translateX(3px);
+  }
+
+  &--primary {
+    @apply bg-ink text-paper;
+
+    &:hover:not(:disabled) {
+      @apply bg-accent text-ink;
+    }
+  }
+
+  &--accent {
+    @apply bg-accent text-ink;
+
+    &:hover:not(:disabled) {
+      @apply bg-white;
+    }
+  }
+
+  &--secondary {
+    @apply border-ink bg-transparent text-ink;
+
+    &:hover:not(:disabled) {
+      @apply bg-ink text-paper;
+    }
+  }
+
+  &--ghost {
+    @apply px-3 text-ink;
+
+    &:hover:not(:disabled) {
+      @apply bg-paper-2;
+    }
+  }
+
+  &--light {
+    @apply border-white/25 bg-transparent text-paper;
+
+    &:hover:not(:disabled) {
+      @apply border-accent bg-accent text-ink;
+    }
+  }
+
+  &--danger {
+    @apply bg-danger text-white;
+
+    &:hover:not(:disabled) {
+      @apply bg-ink;
+    }
+  }
+
+  &--sm {
+    @apply px-4 py-2 text-xs;
+  }
+
+  &--lg {
+    @apply px-8 py-4 text-base;
+  }
+
+  &--block {
+    @apply w-full;
+  }
+
+  &.is-loading {
+    @apply pointer-events-none;
+    color: transparent;
+  }
+
+  &__spinner {
+    @apply absolute inset-0 m-auto h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent;
+    color: var(--c-paper);
+  }
+
+  &--accent &__spinner,
+  &--secondary &__spinner,
+  &--ghost &__spinner {
+    color: var(--c-ink);
+  }
+}

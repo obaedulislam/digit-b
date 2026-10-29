@@ -1,0 +1,4 @@
+/* Mantine components used ONLY by the admin dashboard (layer: mantine). */
+@import '@mantine/core/styles/Menu.layer.css';
+@import '@mantine/core/styles/NumberInput.layer.css';
+@import '@mantine/core/styles/PasswordInput.layer.css';

@@ -1,0 +1,189 @@
+@use '../abstracts' as *;
+
+// ── Detail layout (application page) ────────────────────────────
+.admin-detail {
+  @apply grid gap-6;
+
+  @include up('xl') {
+    grid-template-columns: minmax(0, 1fr) 22rem;
+    align-items: start;
+  }
+
+  &__main,
+  &__aside {
+    @apply flex min-w-0 flex-col gap-6;
+  }
+}
+
+// ── Definition list ─────────────────────────────────────────────
+.admin-dl {
+  @apply grid gap-x-8 gap-y-4;
+  margin: 0;
+
+  &--2 {
+    @include up('md') {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &--1 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  &__row {
+    @apply flex min-w-0 flex-col gap-1;
+
+    &.is-wide {
+      @include up('md') {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+
+  &__term {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-muted);
+  }
+
+  &__value {
+    margin: 0;
+    overflow-wrap: anywhere;
+
+    a {
+      @apply underline underline-offset-4;
+    }
+  }
+
+  &__empty {
+    color: var(--fg-muted);
+  }
+}
+
+// ── Timeline ────────────────────────────────────────────────────
+.admin-timeline {
+  @apply flex flex-col;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &__item {
+    @apply relative flex gap-4 pb-6;
+
+    &:not(:last-child)::before {
+      content: '';
+      @apply absolute w-px;
+      left: 0.3125rem;
+      top: 1.1rem;
+      bottom: 0;
+      background-color: var(--line);
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  &__dot {
+    @apply mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full;
+    background-color: var(--c-ink);
+  }
+
+  &__item:first-child &__dot {
+    background-color: var(--c-accent-strong);
+    box-shadow: 0 0 0 2px var(--c-ink);
+  }
+
+  &__body {
+    @apply flex min-w-0 flex-col gap-1;
+  }
+
+  &__text {
+    @apply flex flex-wrap items-center gap-2;
+    overflow-wrap: anywhere;
+  }
+
+  &__note {
+    @apply block w-full rounded-md px-3 py-2 text-sm italic;
+    background-color: var(--c-paper);
+    border-left: 3px solid var(--c-accent-deep);
+    white-space: pre-line;
+    quotes: none;
+  }
+
+  &__meta {
+    @apply text-xs;
+    color: var(--fg-muted);
+  }
+}
+
+// ── Inbox drawer ────────────────────────────────────────────────
+// The theme's `.drawer` is ink (used by the public mobile menu); admin drawers are paper.
+.drawer.admin-drawer {
+  --bg: var(--c-paper);
+  --fg: var(--c-ink);
+  --fg-muted: var(--c-muted);
+  --line: rgb(10 12 15 / 0.12);
+  background-color: var(--c-paper);
+  color: var(--c-ink);
+
+  :focus-visible {
+    outline-color: var(--c-ink);
+  }
+}
+
+.admin-drawer {
+  &__header {
+    @apply px-6 pb-3 pt-5;
+    background-color: transparent;
+    border-bottom: 1px solid var(--line);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-2xl);
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+
+  &__close {
+    color: var(--c-ink);
+  }
+
+  &__body {
+    @apply h-auto overflow-y-auto p-6;
+  }
+}
+
+.admin-inbox {
+  @apply flex flex-col gap-6;
+
+  &__message {
+    @apply rounded-md p-4;
+    background-color: var(--c-white);
+    border: 1px solid var(--line);
+  }
+
+  &__heading {
+    @apply mb-2 font-mono text-xs uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--ff-mono);
+    color: var(--fg-muted);
+  }
+
+  &__actions {
+    @apply flex flex-wrap items-center gap-2;
+  }
+}
+
+.admin-permissions {
+  @apply flex flex-col gap-2 rounded-md p-4;
+  background-color: var(--c-paper);
+  border: 1px solid var(--line);
+
+  &__title {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-muted);
+  }
+}

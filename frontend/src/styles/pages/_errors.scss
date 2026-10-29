@@ -1,0 +1,32 @@
+@use '../abstracts' as *;
+
+.route-error {
+  @apply flex flex-col items-start gap-5;
+  padding-block: clamp(5rem, 12vw, 10rem);
+
+  &__code {
+    font-family: var(--ff-display);
+    font-size: clamp(6rem, 22vw, 16rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    // Ink text keeps contrast high; the lime offset shadow carries the brand accent.
+    color: var(--c-ink);
+    text-shadow: 0.04em 0.04em 0 var(--c-accent-strong);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-4xl);
+    line-height: 1;
+    max-width: 16ch;
+  }
+
+  &__text {
+    @apply max-w-lg text-lg;
+    color: var(--fg-muted);
+  }
+
+  &__actions {
+    @apply mt-2 flex flex-wrap gap-3;
+  }
+}

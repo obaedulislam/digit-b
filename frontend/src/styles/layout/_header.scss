@@ -1,0 +1,78 @@
+@use '../abstracts' as *;
+
+.header {
+  @apply sticky top-0;
+  z-index: z('header');
+  background-color: rgb(245 243 236 / 0.82);
+  backdrop-filter: saturate(1.4) blur(14px);
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color $duration-base $ease-out,
+    background-color $duration-base $ease-out;
+
+  &.is-scrolled {
+    border-bottom-color: var(--line);
+    background-color: rgb(245 243 236 / 0.94);
+  }
+
+  &__inner {
+    @apply flex items-center justify-between gap-6;
+    height: var(--header-h);
+  }
+
+  &__nav {
+    @apply hidden;
+
+    @include up('lg') {
+      @apply block;
+    }
+  }
+
+  &__list {
+    @apply flex items-center gap-1;
+  }
+
+  &__link {
+    @apply relative block rounded-pill px-3.5 py-2 text-sm font-medium no-underline;
+    @include focus-ring;
+    color: var(--c-ink);
+    transition: background-color $duration-fast $ease-out;
+
+    &:hover {
+      background-color: var(--c-paper-2);
+    }
+
+    // active page: accent dot
+    &.is-active::after {
+      content: '';
+      @apply absolute left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-pill bg-ink;
+      bottom: -2px;
+      box-shadow: 0 0 0 2px var(--c-accent);
+    }
+  }
+
+  &__actions {
+    @apply flex items-center gap-2;
+  }
+
+  &__cta {
+    @apply hidden;
+
+    @include up('sm') {
+      @apply inline-flex;
+    }
+  }
+
+  &__burger {
+    @apply grid h-11 w-11 place-items-center rounded-pill;
+    @include focus-ring;
+    background-color: var(--c-paper-2);
+    border: 0;
+    color: var(--c-ink);
+    cursor: pointer;
+
+    @include up('lg') {
+      @apply hidden;
+    }
+  }
+}

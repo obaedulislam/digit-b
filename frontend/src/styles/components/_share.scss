@@ -1,0 +1,47 @@
+@use '../abstracts' as *;
+
+// Share row (ShareLinks): copy link, LinkedIn, X, email.
+.share {
+  @apply flex items-center gap-4;
+
+  &--column {
+    @apply flex-col items-start gap-3;
+  }
+
+  &__label {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.14em;
+    color: var(--fg-muted);
+  }
+
+  &__list {
+    @apply flex items-center gap-2;
+  }
+
+  &__btn {
+    @apply grid h-10 w-10 place-items-center rounded-pill border no-underline;
+    @include focus-ring;
+    border-color: var(--line);
+    background-color: transparent;
+    color: var(--fg);
+    cursor: pointer;
+    transition:
+      background-color $duration-fast $ease-out,
+      border-color $duration-fast $ease-out,
+      transform $duration-fast $ease-out;
+
+    &:hover {
+      @apply border-ink bg-ink text-paper;
+    }
+
+    &.is-done {
+      @apply border-accent bg-accent text-ink;
+    }
+  }
+
+  &__status {
+    @apply font-mono text-xs;
+    color: var(--c-accent-deep);
+    min-height: 1em;
+  }
+}

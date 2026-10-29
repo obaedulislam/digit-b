@@ -1,0 +1,63 @@
+@use '../abstracts' as *;
+
+html {
+  @apply scroll-smooth antialiased;
+  background-color: var(--c-ink); // overscroll area matches footer
+  text-size-adjust: 100%;
+
+  @media (prefers-reduced-motion: reduce) {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  @apply font-sans text-base;
+  min-height: 100dvh;
+  color: var(--fg);
+  background-color: var(--bg);
+  font-feature-settings: 'ss01', 'cv11';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+// Headings default to the display serif; components fine-tune size/leading.
+h1,
+h2,
+h3 {
+  font-family: var(--ff-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background: var(--c-accent);
+  color: var(--c-ink);
+}
+
+// Keyboard users get a visible, brand-consistent ring everywhere.
+:focus-visible {
+  outline: 2px solid var(--c-ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.is-dark :focus-visible,
+[data-surface='dark'] :focus-visible {
+  outline-color: var(--c-accent);
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
+.sr-only-focusable {
+  @include visually-hidden;
+
+  &:focus {
+    @apply fixed left-4 top-4 z-[999] h-auto w-auto rounded-pill bg-accent px-5 py-3 font-semibold text-ink;
+    clip-path: none;
+    margin: 0;
+  }
+}

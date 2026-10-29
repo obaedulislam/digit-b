@@ -1,0 +1,40 @@
+@use 'sass:list';
+@use '../abstracts' as *;
+
+// Emits every token map as CSS custom properties.
+:root {
+  @each $name, $value in $colors {
+    --c-#{$name}: #{$value};
+  }
+
+  @each $name, $stack in $font-families {
+    --ff-#{$name}: #{$stack};
+  }
+
+  @each $name, $range in $type-scale {
+    --fs-#{$name}: clamp(#{list.nth($range, 1)}, #{list.nth($range, 2)}, #{list.nth($range, 3)});
+  }
+
+  @each $name, $value in $radii {
+    --r-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $shadows {
+    --shadow-#{$name}: #{$value};
+  }
+
+  --container-max: #{$container-max};
+  --container-narrow: #{$container-narrow};
+  --header-h: #{$header-height};
+  --gutter: clamp(1.25rem, 0.6rem + 3vw, 3rem);
+  --section-y: clamp(4.5rem, 3rem + 6vw, 9rem);
+  --ease-out: #{$ease-out};
+  --ease-in-out: #{$ease-in-out};
+
+  // Semantic surface (light by default; sections can swap via dark-surface mixin / .is-dark)
+  --bg: var(--c-paper);
+  --fg: var(--c-ink);
+  --fg-muted: var(--c-muted);
+  --line: rgb(10 12 15 / 0.12);
+  --surface: var(--c-white);
+}

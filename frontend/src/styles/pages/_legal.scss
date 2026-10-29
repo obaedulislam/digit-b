@@ -1,0 +1,130 @@
+@use '../abstracts' as *;
+
+// Privacy / Terms: sticky contents list + numbered sections of markdown.
+.legal {
+  &__layout {
+    @apply grid gap-12;
+
+    @include up('lg') {
+      grid-template-columns: 16rem minmax(0, 1fr);
+      gap: clamp(3rem, 7vw, 7rem);
+      align-items: start;
+    }
+  }
+
+  &__toc {
+    @include up('lg') {
+      position: sticky;
+      top: calc(var(--header-h) + 1.5rem);
+      max-height: calc(100dvh - var(--header-h) - 3rem);
+      overflow-y: auto;
+    }
+  }
+
+  &__toc-title {
+    @apply mb-4 font-mono text-xs uppercase;
+    letter-spacing: 0.14em;
+    color: var(--fg-muted);
+  }
+
+  &__toc-list {
+    @apply flex flex-col;
+    border-top: 1px solid var(--line);
+  }
+
+  &__toc-link {
+    @apply flex items-baseline gap-3 py-2.5 text-sm no-underline;
+    @include focus-ring;
+    border-bottom: 1px solid var(--line);
+    color: var(--c-ink);
+    transition: color $duration-fast $ease-out;
+
+    span {
+      @apply font-mono text-xs;
+      color: var(--c-accent-deep);
+    }
+
+    &:hover {
+      color: var(--c-accent-deep);
+    }
+  }
+
+  &__content {
+    @apply flex min-w-0 flex-col gap-14;
+  }
+
+  &__updated {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.14em;
+    color: var(--fg-muted);
+  }
+
+  &__section {
+    @apply flex flex-col gap-5;
+    scroll-margin-top: calc(var(--header-h) + 1.5rem);
+  }
+
+  &__title {
+    @apply flex flex-col gap-2;
+    font-family: var(--ff-display);
+    font-size: var(--fs-3xl);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  &__num {
+    @apply font-mono text-xs;
+    letter-spacing: 0.14em;
+    color: var(--c-accent-deep);
+  }
+
+  &__body {
+    @apply text-base;
+    max-width: 66ch;
+  }
+
+  &__sibling {
+    @apply pt-6 text-sm;
+    border-top: 1px solid var(--line);
+    color: var(--fg-muted);
+
+    a {
+      @apply underline underline-offset-4;
+      color: var(--c-ink);
+    }
+  }
+}
+
+// Newsletter unsubscribe (/unsubscribe) ───────────────────────
+.unsubscribe {
+  min-height: 60vh;
+
+  &__inner {
+    @apply flex flex-col items-start gap-6;
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-4xl);
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  &__text {
+    @apply max-w-xl text-lg;
+    color: var(--fg-muted);
+  }
+
+  &__actions {
+    @apply flex flex-wrap items-center gap-5;
+  }
+
+  &__cancel {
+    @apply text-sm font-medium underline underline-offset-4;
+    @include focus-ring;
+
+    &:hover {
+      color: var(--c-accent-deep);
+    }
+  }
+}

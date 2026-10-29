@@ -1,0 +1,104 @@
+// ─────────────────────────────────────────────────────────────
+// DIGIT-B design tokens — the single source of truth.
+// Concept: "0 → 1 → B". Ink-black "zero", warm paper "one",
+// and a single signal-lime accent for the "B-coming digital" moment.
+// Values are emitted as CSS custom properties (see base/_root.scss);
+// Tailwind's @theme (styles/tailwind.css) maps utilities onto them.
+// ─────────────────────────────────────────────────────────────
+
+@use 'sass:map';
+
+$colors: (
+  'ink': #0a0c0f,
+  'ink-2': #12161b,
+  'ink-3': #1b2128,
+  'paper': #f5f3ec,
+  'paper-2': #ece9df,
+  'paper-3': #dedacc,
+  'white': #ffffff,
+  'muted': #575d65,
+  'muted-on-ink': #9aa2ac,
+  'accent': #c9f73a,
+  'accent-strong': #b4e61a,
+  'accent-deep': #46640a,
+  'success': #1f7a4d,
+  'warning': #9a6a14,
+  'danger': #b8321c,
+);
+
+$font-families: (
+  'display': ('Instrument Serif', 'Iowan Old Style', 'Georgia', serif),
+  'sans': ('Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif),
+  'mono': ('JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace),
+);
+
+// Fluid type scale: min / preferred / max → clamp()
+$type-scale: (
+  'xs': (0.75rem, '0.74rem + 0.1vw', 0.8rem),
+  'sm': (0.875rem, '0.85rem + 0.12vw', 0.94rem),
+  'base': (1rem, '0.96rem + 0.2vw', 1.0625rem),
+  'lg': (1.125rem, '1.06rem + 0.32vw', 1.3rem),
+  'xl': (1.3rem, '1.15rem + 0.7vw', 1.65rem),
+  '2xl': (1.6rem, '1.3rem + 1.4vw', 2.3rem),
+  '3xl': (2rem, '1.5rem + 2.4vw', 3.2rem),
+  '4xl': (2.5rem, '1.7rem + 4vw', 4.6rem),
+  '5xl': (3rem, '1.7rem + 6.4vw', 7rem),
+);
+
+$breakpoints: (
+  'sm': 640px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+  '2xl': 1536px,
+);
+
+$radii: (
+  'sm': 6px,
+  'md': 12px,
+  'lg': 20px,
+  'xl': 32px,
+  'pill': 999px,
+);
+
+$shadows: (
+  'sm': 0 1px 2px rgb(10 12 15 / 0.06),
+  'md': 0 8px 24px -8px rgb(10 12 15 / 0.14),
+  'lg': 0 24px 60px -20px rgb(10 12 15 / 0.28),
+  'focus': 0 0 0 3px rgb(201 247 58 / 0.55),
+);
+
+$z: (
+  'base': 1,
+  'raised': 10,
+  'header': 100,
+  'overlay': 200,
+  'toast': 300,
+);
+
+$container-max: 1280px;
+$container-narrow: 760px;
+$header-height: 76px;
+
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+$ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+$duration-fast: 160ms;
+$duration-base: 280ms;
+$duration-slow: 600ms;
+
+// accessors ───────────────────────────────────────────────────
+@function color($name) {
+  @return var(--c-#{$name});
+}
+
+@function radius($name) {
+  @return var(--r-#{$name});
+}
+
+@function shadow($name) {
+  @return var(--shadow-#{$name});
+}
+
+@function z($name) {
+  @return map.get($z, $name);
+}

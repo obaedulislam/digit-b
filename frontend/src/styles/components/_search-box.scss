@@ -1,0 +1,79 @@
+@use '../abstracts' as *;
+
+// Search field (SearchBox) + removable filter chips shared by the list pages.
+.search-box {
+  @apply relative flex items-center;
+
+  &__icon {
+    @apply pointer-events-none absolute left-4;
+    color: var(--c-muted);
+  }
+
+  &__input {
+    @apply w-full font-sans text-base;
+    min-height: 3.5rem;
+    padding: 0 3rem 0 3.1rem;
+    border-radius: var(--r-pill);
+    border: 1px solid rgb(10 12 15 / 0.22);
+    background-color: var(--c-white);
+    color: var(--c-ink);
+    appearance: none;
+    transition:
+      border-color $duration-fast $ease-out,
+      box-shadow $duration-fast $ease-out;
+
+    &::placeholder {
+      color: rgb(10 12 15 / 0.42);
+    }
+
+    &::-webkit-search-cancel-button {
+      display: none;
+    }
+
+    &:hover {
+      border-color: rgb(10 12 15 / 0.5);
+    }
+
+    &:focus {
+      border-color: var(--c-ink);
+      box-shadow: var(--shadow-focus);
+      outline: none;
+    }
+  }
+
+  &__clear {
+    @apply absolute right-3 grid h-8 w-8 place-items-center rounded-pill;
+    @include focus-ring;
+    background-color: var(--c-paper-2);
+    border: 0;
+    color: var(--c-ink);
+    cursor: pointer;
+
+    &:hover {
+      @apply bg-ink text-paper;
+    }
+  }
+}
+
+// Active-filter chip: "Remote ×"
+.filter-chip {
+  @apply inline-flex items-center gap-2 rounded-pill py-1.5 pl-3.5 pr-2.5 text-sm font-medium;
+  @include focus-ring;
+  border: 1px solid var(--c-ink);
+  background-color: var(--c-white);
+  color: var(--c-ink);
+  cursor: pointer;
+  transition:
+    background-color $duration-fast $ease-out,
+    color $duration-fast $ease-out;
+
+  &:hover {
+    @apply bg-ink text-paper;
+  }
+
+  &__x {
+    @apply grid h-5 w-5 place-items-center rounded-pill;
+    background-color: var(--c-paper-2);
+    color: var(--c-ink);
+  }
+}

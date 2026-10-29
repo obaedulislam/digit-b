@@ -1,0 +1,299 @@
+@use '../abstracts' as *;
+
+// Shared content blocks used by several pages: service cards, programme/price
+// cards, FAQ wrapper and the closing CTA band. Imported by the page partials.
+
+// Service card ────────────────────────────────────────────────
+.service-grid {
+  @apply grid gap-5;
+  grid-template-columns: minmax(0, 1fr);
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up('lg') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  &__item {
+    @apply flex;
+
+    > * {
+      @apply flex-1;
+    }
+  }
+}
+
+.service-card {
+  --card-bg: var(--c-white);
+  @apply relative flex flex-col gap-4 overflow-hidden rounded-lg border p-7 no-underline;
+  @include focus-ring;
+  border-color: var(--line);
+  background-color: var(--card-bg);
+  color: var(--c-ink);
+  transition:
+    transform $duration-base $ease-out,
+    border-color $duration-base $ease-out,
+    box-shadow $duration-base $ease-out;
+
+  .is-dark & {
+    --card-bg: rgb(255 255 255 / 0.04);
+    color: var(--c-paper);
+  }
+
+  &__top {
+    @apply flex items-start justify-between;
+  }
+
+  &__icon {
+    @apply grid h-14 w-14 place-items-center rounded-pill;
+    background-color: var(--c-paper-2);
+    transition: background-color $duration-base $ease-out;
+
+    .is-dark & {
+      background-color: rgb(255 255 255 / 0.08);
+      color: var(--c-accent);
+    }
+  }
+
+  &__index {
+    @apply font-mono text-xs;
+    letter-spacing: 0.12em;
+    color: var(--c-muted);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-2xl);
+    line-height: 1.08;
+  }
+
+  &__summary {
+    @apply text-base;
+    color: var(--fg-muted);
+    text-wrap: pretty;
+  }
+
+  &__more {
+    @apply mt-auto inline-flex items-center gap-1.5 pt-3 font-mono text-xs uppercase;
+    letter-spacing: 0.12em;
+    color: var(--c-accent-deep);
+
+    .is-dark & {
+      color: var(--c-accent);
+    }
+
+    svg {
+      transition: transform $duration-base $ease-out;
+    }
+  }
+
+  &:hover {
+    border-color: var(--c-ink);
+    box-shadow: var(--shadow-md);
+
+    .is-dark & {
+      border-color: var(--c-accent);
+      box-shadow: none;
+    }
+
+    .service-card__icon {
+      @apply bg-accent;
+      color: var(--c-ink);
+    }
+
+    .service-card__more svg {
+      transform: translate(3px, -3px);
+    }
+
+    @include motion-safe {
+      transform: translateY(-4px);
+    }
+  }
+}
+
+// Programme / price card ──────────────────────────────────────
+.program-grid {
+  @apply grid gap-6;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+
+  > li {
+    @apply flex;
+
+    > * {
+      @apply flex-1;
+    }
+  }
+}
+
+.program-card {
+  @apply flex flex-col gap-6 rounded-xl border p-8;
+  border-color: var(--line);
+  background-color: var(--c-white);
+  color: var(--c-ink);
+
+  &--featured {
+    @include dark-surface;
+    border-color: var(--c-ink);
+    box-shadow: var(--shadow-lg);
+  }
+
+  &__head {
+    @apply flex flex-col gap-3;
+  }
+
+  &__badges {
+    @apply flex flex-wrap gap-2;
+    min-height: 1.75rem;
+  }
+
+  &__name {
+    font-family: var(--ff-display);
+    font-size: var(--fs-3xl);
+    line-height: 1;
+  }
+
+  &__summary {
+    color: var(--fg-muted);
+    text-wrap: pretty;
+  }
+
+  &__price {
+    @apply flex flex-col gap-1 border-y py-5;
+    border-color: var(--line);
+  }
+
+  &__figure {
+    font-family: var(--ff-display);
+    font-size: var(--fs-4xl);
+    line-height: 1;
+    letter-spacing: -0.02em;
+
+    &--text {
+      font-size: var(--fs-2xl);
+    }
+  }
+
+  &__unit {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-muted);
+  }
+
+  &__features {
+    @apply flex flex-1 flex-col gap-3 text-sm;
+
+    li {
+      @apply flex items-start gap-3;
+    }
+
+    svg {
+      @apply mt-0.5 shrink-0;
+      color: var(--c-accent-deep);
+    }
+  }
+
+  &--featured &__features svg {
+    color: var(--c-accent);
+  }
+}
+
+// FAQ wrapper ─────────────────────────────────────────────────
+.faq {
+  @apply w-full;
+  max-width: 54rem;
+
+  .accordion__chevron svg {
+    transition: transform $duration-base $ease-out;
+  }
+
+  .accordion__control[data-active] .accordion__chevron svg {
+    transform: rotate(45deg);
+  }
+
+  .accordion__content {
+    @apply flex flex-col gap-3;
+  }
+}
+
+// Closing CTA band ────────────────────────────────────────────
+.cta-section {
+  padding-block: clamp(2.5rem, 2rem + 3vw, 5rem);
+}
+
+.cta-band {
+  @apply relative isolate flex flex-col gap-8 overflow-hidden rounded-xl p-8;
+
+  @include up('md') {
+    @apply flex-row items-end justify-between gap-12 p-14;
+  }
+
+  &__art {
+    @apply absolute inset-0 -z-10;
+    color: var(--c-muted-on-ink);
+    opacity: 0.5;
+    mask-image: linear-gradient(100deg, transparent 20%, #000 100%);
+  }
+
+  &__body {
+    @apply flex max-w-2xl flex-col gap-5;
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-4xl);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+
+    em {
+      @apply italic;
+      color: var(--c-accent);
+    }
+  }
+
+  &__lead {
+    @apply text-lg;
+    color: var(--fg-muted);
+  }
+
+  &__actions {
+    @apply flex shrink-0 flex-wrap gap-3;
+  }
+}
+
+// Stats band ──────────────────────────────────────────────────
+.stats-section {
+  padding-block: clamp(3rem, 2rem + 4vw, 5.5rem);
+}
+
+.stats-band {
+  @apply grid gap-y-10;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @include up('lg') {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    grid-auto-flow: column;
+  }
+
+  &__item {
+    @apply flex flex-col gap-3 pl-5;
+    border-left: 1px solid var(--line);
+  }
+
+  // Mono: the display serif draws "1" like a lowercase "l".
+  &__value {
+    font-family: var(--ff-mono);
+    font-size: var(--fs-3xl);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  &__label {
+    @apply max-w-[16rem] font-mono text-xs uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-muted);
+  }
+}

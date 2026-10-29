@@ -1,0 +1,79 @@
+@use '../abstracts' as *;
+
+.overlay {
+  background-color: rgb(10 12 15 / 0.62);
+  backdrop-filter: blur(6px);
+}
+
+.drawer {
+  @include dark-surface;
+  box-shadow: var(--shadow-lg);
+
+  &__body {
+    @apply h-full p-0;
+  }
+}
+
+.modal {
+  @apply rounded-lg;
+  background-color: var(--c-paper);
+  color: var(--c-ink);
+  box-shadow: var(--shadow-lg);
+
+  &__header {
+    background-color: transparent;
+    padding: 1.5rem 1.5rem 0.5rem;
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-2xl);
+    line-height: 1.1;
+  }
+
+  &__body {
+    padding: 1rem 1.5rem 1.5rem;
+  }
+
+  &__close {
+    color: var(--c-ink);
+  }
+}
+
+// Mobile navigation drawer content ────────────────────────────
+.mobile-nav {
+  @apply flex h-full min-h-dvh flex-col gap-10 p-6;
+
+  &__top {
+    @apply flex items-center justify-between;
+  }
+
+  &__close {
+    @apply grid h-11 w-11 place-items-center rounded-pill;
+    @include focus-ring;
+    background-color: rgb(255 255 255 / 0.08);
+    color: var(--c-paper);
+    cursor: pointer;
+    border: 0;
+  }
+
+  &__list {
+    @apply flex flex-col;
+  }
+
+  &__link {
+    @apply block py-3 no-underline;
+    @include focus-ring;
+    font-family: var(--ff-display);
+    font-size: var(--fs-3xl);
+    line-height: 1.1;
+    color: var(--c-paper);
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+    transition: color $duration-fast $ease-out;
+
+    &:hover,
+    &.is-active {
+      color: var(--c-accent);
+    }
+  }
+}

@@ -1,0 +1,168 @@
+@use '../abstracts' as *;
+
+// Container ───────────────────────────────────────────────────
+.container {
+  @apply mx-auto w-full;
+  max-width: calc(var(--container-max) + 2 * var(--gutter));
+  padding-inline: var(--gutter);
+
+  &--narrow {
+    max-width: calc(var(--container-narrow) + 2 * var(--gutter));
+  }
+}
+
+// Surfaces ────────────────────────────────────────────────────
+.is-dark {
+  @include dark-surface;
+}
+
+.section {
+  @apply relative;
+  padding-block: var(--section-y);
+  background-color: var(--bg);
+  color: var(--fg);
+
+  &--paper {
+    --bg: var(--c-paper);
+  }
+
+  &--paper-2 {
+    --bg: var(--c-paper-2);
+  }
+
+  &--white {
+    --bg: var(--c-white);
+  }
+
+  &--ink {
+    --bg: var(--c-ink);
+  }
+
+  &--bleed {
+    padding-block: 0;
+  }
+}
+
+// Eyebrow: mono micro-label ───────────────────────────────────
+.eyebrow {
+  @apply inline-flex items-center gap-3 font-mono text-xs uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-muted);
+
+  &__index {
+    @apply inline-flex items-center gap-3;
+    color: var(--c-accent-deep);
+
+    &::after {
+      content: '';
+      @apply inline-block h-px w-8 bg-current opacity-60;
+    }
+
+    .is-dark & {
+      color: var(--c-accent);
+    }
+  }
+}
+
+// Section header ──────────────────────────────────────────────
+.section-header {
+  @apply mb-12 flex flex-col gap-6 md:mb-16;
+
+  @include up('md') {
+    @apply flex-row items-end justify-between gap-10;
+  }
+
+  &--center {
+    @apply items-center text-center;
+
+    .section-header__main {
+      @apply mx-auto;
+    }
+  }
+
+  &__main {
+    @apply flex max-w-3xl flex-col gap-5;
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-4xl);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+
+    em {
+      @apply italic;
+      color: var(--c-accent-deep);
+
+      .is-dark & {
+        color: var(--c-accent);
+      }
+    }
+  }
+
+  &__lead {
+    @apply max-w-2xl text-lg;
+    color: var(--fg-muted);
+    text-wrap: pretty;
+  }
+
+  &__actions {
+    @apply shrink-0;
+  }
+}
+
+// Badge ───────────────────────────────────────────────────────
+.badge {
+  @apply inline-flex items-center gap-1.5 rounded-pill border px-3 py-1 font-mono text-xs uppercase;
+  letter-spacing: 0.08em;
+  border-color: var(--line);
+  color: var(--fg);
+  background-color: transparent;
+  white-space: nowrap;
+
+  &--accent {
+    @apply border-transparent bg-accent text-ink;
+  }
+
+  &--ink {
+    @apply border-transparent bg-ink text-paper;
+  }
+
+  &--soft {
+    @apply border-transparent bg-paper-2 text-ink;
+  }
+
+  &--success {
+    @apply border-transparent text-white;
+    background-color: var(--c-success);
+  }
+
+  &--danger {
+    @apply border-transparent text-white;
+    background-color: var(--c-danger);
+  }
+
+  &--warning {
+    @apply border-transparent text-white;
+    background-color: var(--c-warning);
+  }
+}
+
+.link-button {
+  @apply cursor-pointer underline underline-offset-4;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

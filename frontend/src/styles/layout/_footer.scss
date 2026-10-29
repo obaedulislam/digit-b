@@ -1,0 +1,98 @@
+@use '../abstracts' as *;
+
+.footer {
+  @apply relative overflow-hidden;
+  padding-top: 2rem;
+
+  &__ticker {
+    margin-bottom: clamp(3rem, 6vw, 5.5rem);
+  }
+
+  &__grid {
+    @apply grid gap-12 pb-16;
+
+    @include up('lg') {
+      grid-template-columns: 1.7fr repeat(3, 1fr) 1.3fr;
+      gap: 3rem;
+    }
+  }
+
+  &__brand {
+    @apply flex flex-col gap-5;
+  }
+
+  &__tagline {
+    font-family: var(--ff-display);
+    font-size: var(--fs-2xl);
+    line-height: 1.12;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+
+  &__about {
+    @apply max-w-sm text-sm;
+    color: var(--fg-muted);
+  }
+
+  &__newsletter {
+    @apply mt-4 flex max-w-md flex-col gap-3;
+  }
+
+  &__heading {
+    @apply mb-5 font-mono text-xs uppercase;
+    letter-spacing: 0.14em;
+    color: var(--c-accent);
+  }
+
+  &__col {
+    @apply not-italic;
+  }
+
+  &__list {
+    @apply flex flex-col gap-3;
+  }
+
+  &__link {
+    @apply inline-flex items-start gap-2.5 text-sm no-underline;
+    @include focus-ring;
+    color: var(--c-paper);
+    transition: color $duration-fast $ease-out;
+
+    &:is(a):hover {
+      color: var(--c-accent);
+    }
+
+    svg {
+      @apply mt-0.5 shrink-0;
+      color: var(--c-accent);
+    }
+  }
+
+  &__socials {
+    @apply mt-6 flex gap-2;
+  }
+
+  &__social {
+    @apply grid h-10 w-10 place-items-center rounded-pill border;
+    @include focus-ring;
+    border-color: rgb(255 255 255 / 0.2);
+    color: var(--c-paper);
+    transition:
+      background-color $duration-fast $ease-out,
+      color $duration-fast $ease-out;
+
+    &:hover {
+      @apply border-accent bg-accent text-ink;
+    }
+  }
+
+  &__bar {
+    @apply flex flex-col items-start justify-between gap-4 py-8 text-sm sm:flex-row sm:items-center;
+    border-top: 1px solid var(--line);
+    color: var(--fg-muted);
+  }
+
+  &__legal {
+    @apply flex gap-6;
+  }
+}

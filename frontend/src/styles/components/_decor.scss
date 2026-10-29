@@ -1,0 +1,119 @@
+@use '../abstracts' as *;
+
+// Generative network artwork ──────────────────────────────────
+.node-field {
+  @apply h-full w-full;
+  color: currentColor;
+
+  &__edges line {
+    stroke: currentColor;
+    stroke-opacity: 0.16;
+    stroke-width: 1;
+  }
+
+  &__node {
+    fill: currentColor;
+    fill-opacity: 0.5;
+    transform-box: fill-box;
+    transform-origin: center;
+
+    @include motion-safe {
+      animation: node-pulse 4.5s ease-in-out infinite;
+    }
+
+    &--hot {
+      fill: var(--c-accent);
+      fill-opacity: 1;
+    }
+  }
+
+  &__packet {
+    fill: var(--c-accent);
+    filter: drop-shadow(0 0 6px rgb(201 247 58 / 0.9));
+  }
+}
+
+@keyframes node-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+// Binary digit set in mono inside display copy (see BitText) ──
+.bit {
+  font-family: var(--ff-mono);
+  font-size: 0.78em;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--c-accent-deep);
+  padding-inline: 0.06em;
+
+  .is-dark & {
+    color: var(--c-accent);
+  }
+}
+
+// Ticker ──────────────────────────────────────────────────────
+.ticker {
+  @apply overflow-hidden whitespace-nowrap font-mono uppercase;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.3em;
+  border-block: 1px solid var(--line);
+  padding-block: 0.9rem;
+  color: var(--fg-muted);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+
+  &__track {
+    @apply flex w-max;
+
+    @include motion-safe {
+      animation: ticker 48s linear infinite;
+    }
+  }
+
+  &__row {
+    @apply flex shrink-0 items-center;
+  }
+
+  &__item {
+    padding-inline: 2rem;
+
+    &--accent {
+      color: var(--c-accent);
+    }
+  }
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+// Cover image / generated fallback ────────────────────────────
+.cover {
+  @apply relative w-full overflow-hidden rounded-lg;
+  background: var(--c-ink);
+  color: var(--c-muted-on-ink);
+
+  &__img {
+    @apply h-full w-full object-cover;
+    transition: transform $duration-slow $ease-out;
+  }
+
+  &__art {
+    @apply absolute inset-0;
+  }
+
+  &__label {
+    @apply absolute bottom-4 left-4 rounded-pill bg-accent px-3 py-1 font-mono text-xs uppercase text-ink;
+    letter-spacing: 0.08em;
+  }
+}

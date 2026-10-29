@@ -1,0 +1,94 @@
+@use '../abstracts' as *;
+
+// Accordion (FAQ) ─────────────────────────────────────────────
+.accordion {
+  &__item {
+    border-bottom: 1px solid var(--line);
+
+    &:first-of-type {
+      border-top: 1px solid var(--line);
+    }
+  }
+
+  &__control {
+    @apply flex w-full items-center justify-between gap-6 py-6 text-left;
+    @include focus-ring;
+    background: none;
+    color: var(--fg);
+    cursor: pointer;
+
+    &:hover .accordion__label {
+      color: var(--c-accent-deep);
+    }
+
+    .is-dark &:hover .accordion__label {
+      color: var(--c-accent);
+    }
+  }
+
+  &__label {
+    font-family: var(--ff-display);
+    font-size: var(--fs-xl);
+    line-height: 1.2;
+    transition: color $duration-fast $ease-out;
+  }
+
+  &__chevron {
+    @apply grid h-9 w-9 shrink-0 place-items-center rounded-pill border;
+    border-color: var(--line);
+    color: var(--fg);
+    transition:
+      background-color $duration-base $ease-out,
+      border-color $duration-base $ease-out;
+  }
+
+  &__control[data-active] &__chevron {
+    background-color: var(--c-accent);
+    border-color: var(--c-accent);
+    color: var(--c-ink);
+  }
+
+  &__content {
+    padding: 0 0 1.75rem;
+    max-width: 62ch;
+    color: var(--fg-muted);
+    line-height: 1.7;
+  }
+}
+
+// Tabs ────────────────────────────────────────────────────────
+.tabs {
+  &__list {
+    @apply inline-flex flex-wrap gap-1 rounded-pill p-1;
+    background-color: var(--c-paper-2);
+    border: 1px solid var(--line);
+
+    &::before {
+      display: none;
+    }
+  }
+
+  &__tab {
+    @apply rounded-pill px-6 py-2.5 text-sm font-semibold;
+    @include focus-ring;
+    background: none;
+    border: 0;
+    color: var(--c-ink);
+    cursor: pointer;
+    transition:
+      background-color $duration-base $ease-out,
+      color $duration-base $ease-out;
+
+    &[data-active] {
+      @apply bg-ink text-paper;
+    }
+
+    &:hover:not([data-active]) {
+      background-color: var(--c-paper-3);
+    }
+  }
+
+  &__panel {
+    padding-top: 2.5rem;
+  }
+}

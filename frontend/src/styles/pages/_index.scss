@@ -1,0 +1,11 @@
+// One partial per page/feature. Each is owned by exactly one implementation task.
+@forward 'home';
+@forward 'about';
+@forward 'services';
+@forward 'mentorship';
+@forward 'contact';
+@forward 'apply';
+@forward 'jobs';
+@forward 'posts';
+@forward 'legal';
+@forward 'errors';

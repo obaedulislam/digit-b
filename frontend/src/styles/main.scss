@@ -1,0 +1,39 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// PUBLIC-SITE STYLESHEET ENTRY — the only stylesheet the public bundle loads.
+//
+// Cascade order (lowest → highest):
+//   theme → base (Tailwind preflight) → mantine → utilities → OUR UNLAYERED SCSS
+//
+// How the toolchain fits together
+//  • Tokens live in abstracts/_tokens.scss and are emitted as CSS variables by
+//    base/_root.scss; theme.css maps Tailwind utilities onto them.
+//  • Partials use `@apply` freely. Tailwind runs as a PostCSS step *after* Sass,
+//    so it sees the compiled partials; the plain-CSS @imports below give it the
+//    theme + utilities, so no `@reference` is needed in this entry.
+//  • Add one partial per component/page; BEM only (block__element--modifier).
+//  • Secondary entries (admin.scss) use `@reference './reference.css'` instead.
+// ═══════════════════════════════════════════════════════════════════════════
+
+@use 'base/root';
+@use 'base/global';
+@use 'components/button';
+@use 'components/layout';
+@use 'components/logo';
+@use 'components/decor';
+@use 'components/forms';
+@use 'components/disclosure';
+@use 'components/overlays';
+@use 'components/feedback';
+@use 'components/markdown';
+@use 'layout/header';
+@use 'layout/footer';
+@use 'layout/page-hero';
+@use 'layout/site';
+@use 'pages';
+
+// Plain-CSS imports (Sass hoists these above everything). Order = layer order.
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import './vendors/mantine-public.css';
+@import './theme.css';
+@import 'tailwindcss/utilities.css' layer(utilities);

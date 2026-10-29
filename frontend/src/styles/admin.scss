@@ -1,0 +1,22 @@
+// ═══════════════════════════════════════════════════════════════════════════
+// ADMIN stylesheet entry — imported only by the lazy admin chunk
+// (src/admin/AdminApp.jsx), so public visitors never download it.
+//
+// It must NOT re-emit Tailwind base / preflight / Mantine core CSS (main.scss
+// already ships them in the public bundle's CSS and the admin app loads both).
+// `@reference` gives `@apply` access to the theme without emitting anything.
+// Admin-only Mantine components are imported per component below.
+// One partial per area, BEM blocks prefixed `admin-`.
+// ═══════════════════════════════════════════════════════════════════════════
+@use 'abstracts' as *;
+@use 'admin/shell';
+@use 'admin/page';
+@use 'admin/table';
+@use 'admin/dashboard';
+@use 'admin/form';
+@use 'admin/detail';
+@use 'admin/login';
+
+@import './vendors/mantine-admin.css';
+
+@reference './reference.css';

@@ -1,0 +1,69 @@
+@use '../abstracts' as *;
+
+.page-hero {
+  @apply relative isolate overflow-hidden;
+  // Inner pages lead with their content (job lists, forms) — keep the hero compact.
+  padding-block: clamp(2.75rem, 1.75rem + 3.5vw, 5rem) clamp(2.75rem, 2rem + 3vw, 4.5rem);
+
+  &__art {
+    @apply absolute inset-0 -z-10;
+    color: var(--c-muted-on-ink);
+    opacity: 0.55;
+    mask-image: linear-gradient(100deg, transparent 30%, #000 100%);
+  }
+
+  &__inner {
+    @apply flex flex-col items-start gap-5;
+  }
+
+  &__crumbs {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fg-muted);
+
+    ol {
+      @apply flex flex-wrap items-center gap-1.5;
+    }
+
+    li {
+      @apply inline-flex items-center gap-1.5;
+    }
+
+    a {
+      @apply no-underline;
+
+      &:hover {
+        color: var(--c-accent);
+      }
+    }
+
+    [aria-current='page'] {
+      color: var(--c-paper);
+    }
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: clamp(2.75rem, 1.5rem + 5vw, 5.25rem);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    max-width: 16ch;
+    text-wrap: balance;
+
+    em {
+      @apply italic;
+      color: var(--c-accent);
+    }
+  }
+
+  &__lead {
+    @apply max-w-2xl text-xl;
+    color: var(--fg-muted);
+    text-wrap: pretty;
+  }
+
+  &__actions {
+    @apply mt-2 flex flex-wrap gap-3;
+  }
+}

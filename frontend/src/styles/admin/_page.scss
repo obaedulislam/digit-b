@@ -1,0 +1,221 @@
+@use '../abstracts' as *;
+
+// ── Page frame ──────────────────────────────────────────────────
+.admin-page {
+  @apply flex flex-col gap-6;
+
+  &__header {
+    @apply flex flex-col gap-4;
+
+    @include up('md') {
+      @apply flex-row items-end justify-between gap-8;
+    }
+  }
+
+  &__heading {
+    @apply flex min-w-0 flex-col gap-2;
+  }
+
+  &__eyebrow {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.14em;
+    color: var(--c-accent-deep);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-3xl);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+
+  &__lead {
+    @apply max-w-2xl text-base;
+    color: var(--fg-muted);
+  }
+
+  &__actions {
+    @apply flex shrink-0 flex-wrap items-center gap-3;
+  }
+
+  // Shared Pager: tighter than on the public site.
+  .pager-bar {
+    margin-top: 0.5rem;
+  }
+}
+
+.admin-crumbs {
+  &__list {
+    @apply flex flex-wrap items-center gap-1.5 font-mono text-xs uppercase;
+    letter-spacing: 0.1em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    @apply inline-flex items-center gap-1.5;
+  }
+
+  &__link {
+    color: var(--fg-muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--c-ink);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+
+  &__current {
+    color: var(--c-ink);
+    overflow-wrap: anywhere;
+  }
+
+  &__sep {
+    color: var(--fg-muted);
+  }
+}
+
+// ── Cards ───────────────────────────────────────────────────────
+.admin-card {
+  @apply rounded-lg;
+  background-color: var(--c-white);
+  border: 1px solid var(--line);
+  min-width: 0;
+
+  &__header {
+    @apply flex flex-col gap-1 px-5 pb-0 pt-5;
+
+    &--row {
+      @apply flex-row items-center justify-between gap-3;
+    }
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-xl);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  &__text {
+    @apply text-sm;
+    color: var(--fg-muted);
+  }
+
+  &__body {
+    @apply p-5;
+
+    &--flush {
+      @apply px-2 pb-3 pt-2;
+    }
+  }
+}
+
+// Two cards side by side on wide screens.
+.admin-split {
+  @apply grid gap-6;
+
+  @include up('xl') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.admin-stack {
+  @apply flex flex-col gap-4;
+}
+
+.admin-muted {
+  color: var(--fg-muted);
+}
+
+.admin-prose {
+  @apply max-w-prose whitespace-pre-line;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.admin-inline-link {
+  @apply inline-flex items-center gap-1.5 font-medium;
+  color: var(--c-accent-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover {
+    color: var(--c-ink);
+  }
+}
+
+.admin-you {
+  @apply font-mono text-xs uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+}
+
+.admin-chips {
+  @apply flex flex-wrap gap-1.5;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &__item {
+    @apply rounded-pill px-3 py-1 text-xs font-medium;
+    background-color: var(--c-paper-2);
+    border: 1px solid var(--line);
+  }
+}
+
+.admin-file {
+  @apply inline-flex items-start gap-2;
+  overflow-wrap: anywhere;
+}
+
+.admin-notice {
+  @apply flex items-start gap-2 rounded-md px-4 py-3 text-sm;
+  background-color: rgb(201 247 58 / 0.25);
+  border: 1px solid rgb(70 100 10 / 0.35);
+  color: var(--c-ink);
+}
+
+.admin-count {
+  @apply text-sm;
+  color: var(--fg-muted);
+  margin-top: -0.5rem;
+
+  strong {
+    color: var(--c-ink);
+  }
+}
+
+.admin-forbidden {
+  @apply mx-auto flex max-w-lg flex-col items-center gap-4 rounded-lg px-6 py-14 text-center;
+  background-color: var(--c-white);
+  border: 1px solid var(--line);
+
+  &__icon {
+    @apply grid h-14 w-14 place-items-center rounded-pill bg-ink text-accent;
+  }
+
+  &__text {
+    color: var(--fg-muted);
+  }
+}
+
+.admin-confirm {
+  @apply flex flex-col gap-5;
+
+  &__message {
+    color: var(--fg-muted);
+    line-height: 1.6;
+  }
+
+  &__actions {
+    @apply flex flex-wrap justify-end gap-3;
+  }
+}

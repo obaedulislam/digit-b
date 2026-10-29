@@ -1,0 +1,124 @@
+@use '../abstracts' as *;
+
+// Rendered admin-authored markdown. The one place tag selectors are used,
+// because the HTML is generated from content, not authored in JSX.
+.markdown {
+  @apply text-lg;
+  color: var(--c-ink);
+  line-height: 1.75;
+  max-width: 68ch;
+
+  > * + * {
+    margin-top: 1.25em;
+  }
+
+  h2,
+  h3,
+  h4 {
+    font-family: var(--ff-display);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin-top: 2.2em;
+  }
+
+  h2 {
+    font-size: var(--fs-2xl);
+  }
+
+  h3 {
+    font-size: var(--fs-xl);
+  }
+
+  h4 {
+    @apply font-sans text-base font-semibold;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    @apply underline underline-offset-4;
+    text-decoration-color: var(--c-accent-strong);
+    text-decoration-thickness: 2px;
+
+    &:hover {
+      background-color: var(--c-accent);
+    }
+  }
+
+  strong {
+    @apply font-semibold;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.4em;
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  li + li {
+    margin-top: 0.5em;
+  }
+
+  li::marker {
+    color: var(--c-accent-deep);
+  }
+
+  blockquote {
+    padding: 0.25em 0 0.25em 1.5em;
+    border-left: 3px solid var(--c-accent-strong);
+    font-family: var(--ff-display);
+    font-size: var(--fs-xl);
+    line-height: 1.35;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin-block: 2.5em;
+  }
+
+  code {
+    @apply rounded-sm px-1.5 py-0.5 font-mono;
+    font-size: 0.88em;
+    background-color: var(--c-paper-2);
+  }
+
+  img {
+    @apply rounded-lg;
+  }
+
+  table {
+    @apply w-full text-left text-base;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 0.7em 0.9em;
+    border-bottom: 1px solid var(--line);
+  }
+
+  th {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  // Dark surface variant
+  .is-dark & {
+    color: var(--c-paper);
+
+    code {
+      background-color: rgb(255 255 255 / 0.1);
+    }
+  }
+}

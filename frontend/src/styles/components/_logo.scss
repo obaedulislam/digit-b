@@ -1,0 +1,52 @@
+@use '../abstracts' as *;
+
+.logo {
+  @apply inline-flex items-center gap-3;
+  @include focus-ring;
+  text-decoration: none;
+  color: var(--c-ink);
+
+  &--light {
+    color: var(--c-paper);
+  }
+
+  &__mark {
+    @apply h-9 w-9 shrink-0;
+    transition: transform $duration-base $ease-out;
+  }
+
+  &:hover &__mark {
+    transform: rotate(-8deg) scale(1.04);
+  }
+
+  &__tile {
+    fill: var(--c-ink);
+  }
+
+  &--light &__tile {
+    fill: var(--c-ink-3);
+  }
+
+  &__glyph {
+    fill: var(--c-accent);
+    font-family: var(--ff-display);
+    font-size: 26px;
+  }
+
+  &__bit {
+    fill: var(--c-accent);
+  }
+
+  &__word {
+    @apply font-sans text-lg font-bold;
+    letter-spacing: 0.04em;
+  }
+
+  &__dash {
+    color: var(--c-accent-deep);
+  }
+
+  &--light &__dash {
+    color: var(--c-accent);
+  }
+}

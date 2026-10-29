@@ -1,0 +1,52 @@
+/*
+ * Tailwind v4 theme: maps utilities onto the SCSS-emitted design tokens
+ * (see abstracts/_tokens.scss → base/_root.scss). No values are defined here,
+ * so tokens stay single-sourced.
+ */
+/* Utilities are generated from design tokens only — no stray default palette. */
+@theme inline {
+  --color-*: initial;
+  --color-ink: var(--c-ink);
+  --color-ink-2: var(--c-ink-2);
+  --color-ink-3: var(--c-ink-3);
+  --color-paper: var(--c-paper);
+  --color-paper-2: var(--c-paper-2);
+  --color-paper-3: var(--c-paper-3);
+  --color-white: var(--c-white);
+  --color-muted: var(--c-muted);
+  --color-muted-on-ink: var(--c-muted-on-ink);
+  --color-accent: var(--c-accent);
+  --color-accent-strong: var(--c-accent-strong);
+  --color-accent-deep: var(--c-accent-deep);
+  --color-success: var(--c-success);
+  --color-warning: var(--c-warning);
+  --color-danger: var(--c-danger);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-display: var(--ff-display);
+  --font-sans: var(--ff-sans);
+  --font-mono: var(--ff-mono);
+
+  --text-xs: var(--fs-xs);
+  --text-sm: var(--fs-sm);
+  --text-base: var(--fs-base);
+  --text-lg: var(--fs-lg);
+  --text-xl: var(--fs-xl);
+  --text-2xl: var(--fs-2xl);
+  --text-3xl: var(--fs-3xl);
+  --text-4xl: var(--fs-4xl);
+  --text-5xl: var(--fs-5xl);
+
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+  --radius-pill: var(--r-pill);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --ease-out: var(--ease-out);
+}

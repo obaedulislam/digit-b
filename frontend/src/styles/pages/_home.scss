@@ -1,0 +1,565 @@
+@use '../abstracts' as *;
+@use '../components/catalog';
+
+// Home page. BEM only; one block per section (home-hero, home-mission, …).
+
+// Hero ────────────────────────────────────────────────────────
+.home-hero {
+  @apply relative isolate overflow-hidden;
+  padding-top: clamp(3.5rem, 2rem + 6vw, 8rem);
+
+  &__art {
+    @apply absolute inset-0 -z-10;
+    color: var(--c-muted-on-ink);
+    opacity: 0.55;
+    mask-image: linear-gradient(180deg, transparent 0%, #000 45%, transparent 100%);
+
+    @include up('lg') {
+      mask-image: linear-gradient(100deg, transparent 15%, #000 75%);
+    }
+  }
+
+  &__inner {
+    @apply flex flex-col;
+    gap: clamp(3.5rem, 2rem + 5vw, 7rem);
+    padding-bottom: clamp(3.5rem, 2rem + 5vw, 7rem);
+  }
+
+  &__copy {
+    @apply flex flex-col items-start gap-7;
+    max-width: 66rem;
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: clamp(2.8rem, 1.5rem + 6.4vw, 6.6rem);
+    font-weight: 400;
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+    word-spacing: 0.04em;
+    text-wrap: balance;
+
+    em {
+      @apply italic;
+      color: var(--c-accent);
+    }
+  }
+
+  &__lead {
+    @apply max-w-2xl text-xl;
+    color: var(--fg-muted);
+    text-wrap: pretty;
+  }
+
+  &__actions {
+    @apply mt-1 flex flex-wrap gap-3;
+  }
+
+  &__tagline {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.14em;
+    line-height: 1.8;
+    color: var(--fg-muted);
+
+    &::before {
+      content: '';
+      @apply mr-4 inline-block h-px w-10 bg-current align-middle opacity-60;
+    }
+  }
+
+  &__points {
+    @apply grid gap-0;
+
+    @include up('md') {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: 2.5rem;
+    }
+  }
+
+  &__point {
+    @apply flex flex-col gap-3 py-6;
+    border-top: 1px solid var(--line);
+  }
+
+  &__index {
+    @apply font-mono text-xs;
+    letter-spacing: 0.12em;
+    color: var(--c-accent);
+  }
+
+  &__point-title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-xl);
+    line-height: 1.15;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+
+  &__point-text {
+    @apply max-w-sm text-sm;
+    color: var(--fg-muted);
+  }
+
+  &__ticker {
+    border-bottom: 0;
+  }
+}
+
+// Mission ─────────────────────────────────────────────────────
+.home-mission {
+  @apply grid items-start gap-14;
+
+  @include up('lg') {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 6rem;
+  }
+
+  &__intro {
+    @apply flex flex-col items-start gap-6;
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-4xl);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+
+    em {
+      @apply italic;
+      color: var(--c-accent-deep);
+    }
+  }
+
+  &__lead {
+    @apply max-w-xl text-lg;
+    color: var(--fg-muted);
+    text-wrap: pretty;
+  }
+
+  &__pillars {
+    @apply flex flex-col gap-10;
+  }
+
+  &__pillar {
+    @apply flex flex-col gap-3 pt-6;
+    border-top: 1px solid var(--c-ink);
+
+    p {
+      color: var(--fg-muted);
+    }
+  }
+
+  &__mark {
+    @apply font-mono;
+    font-size: var(--fs-3xl);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--c-accent-deep);
+  }
+
+  &__pillar-title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-2xl);
+    line-height: 1.1;
+  }
+}
+
+// Why us ──────────────────────────────────────────────────────
+.home-why {
+  @apply grid gap-x-16 gap-y-2;
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__item {
+    @apply flex flex-col gap-3 py-9;
+    border-top: 1px solid var(--line);
+  }
+
+  &__index {
+    @apply font-mono text-xs;
+    letter-spacing: 0.12em;
+    color: var(--c-accent);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-3xl);
+    line-height: 1.02;
+  }
+
+  &__text {
+    @apply max-w-md text-base;
+    color: var(--fg-muted);
+  }
+}
+
+// Working style ───────────────────────────────────────────────
+.home-steps {
+  @apply grid gap-10;
+
+  @include up('lg') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3rem;
+  }
+
+  &__item {
+    @apply flex flex-col gap-4 pt-7;
+    border-top: 1px solid var(--c-ink);
+    position: relative;
+
+    &::before {
+      content: '';
+      @apply absolute -top-1 left-0 h-2 w-2 rounded-pill bg-ink;
+    }
+  }
+
+  &__index {
+    @apply font-mono;
+    font-size: var(--fs-3xl);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--c-accent-deep);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-2xl);
+    line-height: 1.1;
+  }
+
+  &__text {
+    @apply max-w-sm;
+    color: var(--fg-muted);
+  }
+}
+
+// Testimonials ────────────────────────────────────────────────
+.quote-grid {
+  @apply grid gap-5;
+
+  @include up('md') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  > li {
+    @apply flex;
+
+    > * {
+      @apply flex-1;
+    }
+  }
+}
+
+.quote-card {
+  @apply flex flex-col gap-6 rounded-lg border p-8;
+  border-color: var(--line);
+  background-color: rgb(255 255 255 / 0.04);
+
+  &__stars {
+    @apply flex gap-0.5;
+    color: var(--c-accent);
+  }
+
+  &__text {
+    @apply flex-1;
+    font-family: var(--ff-display);
+    font-size: var(--fs-xl);
+    line-height: 1.3;
+    text-wrap: pretty;
+  }
+
+  &__who {
+    @apply flex items-center gap-4;
+  }
+
+  &__avatar {
+    @apply grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-pill bg-accent font-mono text-sm font-semibold text-ink;
+
+    img {
+      @apply h-full w-full object-cover;
+    }
+  }
+
+  &__name {
+    @apply block text-base font-semibold;
+  }
+
+  &__role {
+    @apply block text-sm;
+    color: var(--fg-muted);
+  }
+}
+
+// Featured vacancies ──────────────────────────────────────────
+.job-teasers {
+  @apply grid gap-5;
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up('lg') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  > li {
+    @apply flex;
+
+    > * {
+      @apply flex-1;
+    }
+  }
+}
+
+.job-teaser {
+  @apply flex flex-col gap-4 rounded-lg border p-7 no-underline;
+  @include focus-ring;
+  border-color: var(--line);
+  background-color: var(--c-white);
+  color: var(--c-ink);
+  transition:
+    transform $duration-base $ease-out,
+    border-color $duration-base $ease-out,
+    box-shadow $duration-base $ease-out;
+
+  &__badges {
+    @apply flex flex-wrap gap-2;
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-2xl);
+    line-height: 1.08;
+  }
+
+  &__summary {
+    @include line-clamp(3);
+    color: var(--c-muted);
+  }
+
+  &__meta {
+    @apply mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-2 text-sm;
+  }
+
+  &__loc {
+    @apply inline-flex items-center gap-1.5;
+    color: var(--c-muted);
+  }
+
+  &__salary {
+    @apply font-mono text-xs;
+    letter-spacing: 0.04em;
+  }
+
+  &__more {
+    @apply inline-flex items-center gap-1.5 border-t pt-4 font-mono text-xs uppercase;
+    letter-spacing: 0.12em;
+    border-color: var(--line);
+    color: var(--c-accent-deep);
+
+    svg {
+      transition: transform $duration-base $ease-out;
+    }
+  }
+
+  &:hover {
+    border-color: var(--c-ink);
+    box-shadow: var(--shadow-md);
+
+    .job-teaser__more svg {
+      transform: translate(3px, -3px);
+    }
+
+    @include motion-safe {
+      transform: translateY(-4px);
+    }
+  }
+}
+
+// Contact ─────────────────────────────────────────────────────
+.home-contact {
+  @apply grid items-start gap-14;
+
+  @include up('lg') {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 5rem;
+  }
+
+  &__intro {
+    @apply flex flex-col gap-2;
+
+    .section-header {
+      @apply mb-8;
+    }
+  }
+
+  &__cards {
+    @apply grid gap-4;
+
+    @include up('sm') {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__card {
+    @apply flex flex-col gap-2 rounded-lg border p-5;
+    border-color: var(--line);
+    background-color: rgb(255 255 255 / 0.04);
+  }
+
+  &__icon {
+    @apply mb-2 grid h-11 w-11 place-items-center rounded-pill bg-accent text-ink;
+  }
+
+  &__label {
+    @apply font-mono text-xs uppercase;
+    font-family: var(--ff-mono);
+    letter-spacing: 0.14em;
+    color: var(--fg-muted);
+  }
+
+  &__value {
+    @apply flex flex-col text-base not-italic;
+    overflow-wrap: anywhere;
+
+    address {
+      @apply flex flex-col not-italic;
+    }
+
+    a {
+      @apply no-underline;
+      transition: color $duration-fast $ease-out;
+
+      &:hover {
+        color: var(--c-accent);
+      }
+    }
+  }
+
+  &__form {
+    @apply rounded-xl border p-6;
+    border-color: var(--line);
+    background-color: rgb(255 255 255 / 0.04);
+
+    @include up('md') {
+      @apply p-10;
+    }
+  }
+
+  &__form-title {
+    @apply mb-7;
+    font-family: var(--ff-display);
+    font-size: var(--fs-2xl);
+    line-height: 1.1;
+  }
+
+  // The shared checkbox is ink-on-white; on the ink section it needs a lime fill.
+  .choice__input:checked {
+    background-color: var(--c-accent);
+    border-color: var(--c-accent);
+  }
+
+  .choice__icon {
+    color: var(--c-ink);
+  }
+}
+
+.quick-form {
+  &__done {
+    @apply flex flex-col items-start gap-5;
+  }
+}
+
+// Latest posts ────────────────────────────────────────────────
+.home-posts {
+  @apply grid gap-x-6 gap-y-12;
+
+  @include up('md') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.home-post {
+  @apply flex flex-col gap-4 no-underline;
+  @include focus-ring;
+  color: var(--c-ink);
+
+  &__cover {
+    @apply mb-1;
+  }
+
+  &__meta {
+    @apply flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs uppercase;
+    letter-spacing: 0.08em;
+    color: var(--c-muted);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-xl);
+    line-height: 1.12;
+    text-wrap: balance;
+    transition: color $duration-fast $ease-out;
+  }
+
+  &__excerpt {
+    @include line-clamp(3);
+    color: var(--c-muted);
+  }
+
+  &:hover {
+    .home-post__title {
+      color: var(--c-accent-deep);
+    }
+
+    .cover__img {
+      transform: scale(1.04);
+    }
+  }
+}
+
+// Newsletter band ─────────────────────────────────────────────
+.home-news {
+  @apply relative isolate grid items-center gap-8 overflow-hidden rounded-xl p-8;
+
+  @include up('lg') {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 4rem;
+    padding: 4rem;
+  }
+
+  &__art {
+    @apply absolute inset-0 -z-10;
+    color: var(--c-muted-on-ink);
+    opacity: 0.45;
+    mask-image: linear-gradient(100deg, transparent 10%, #000 100%);
+  }
+
+  &__copy {
+    @apply flex flex-col gap-4;
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-3xl);
+    line-height: 1;
+
+    em {
+      @apply italic;
+      color: var(--c-accent);
+    }
+  }
+
+  &__lead {
+    @apply max-w-md;
+    color: var(--fg-muted);
+  }
+
+  // Solid field so the generative art never shows through the input.
+  .field__input {
+    background-color: var(--c-ink-2);
+  }
+}

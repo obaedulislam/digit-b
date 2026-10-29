@@ -1,0 +1,37 @@
+@use '../abstracts' as *;
+
+// Breadcrumbs for light surfaces (PageHero has its own dark variant).
+.breadcrumbs {
+  @apply font-mono text-xs uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-muted);
+
+  &__list {
+    @apply flex flex-wrap items-center gap-1.5;
+  }
+
+  &__item {
+    @apply inline-flex items-center gap-1.5;
+  }
+
+  &__link {
+    @apply no-underline;
+    @include focus-ring;
+    transition: color $duration-fast $ease-out;
+
+    &:hover {
+      color: var(--c-accent-deep);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+  }
+
+  &__current {
+    color: var(--fg);
+    // long titles must not blow out the row
+    max-width: 38ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,277 @@
+@use '../abstracts' as *;
+
+// Mantine inputs re-skinned through the BEM classNames set in theme/mantine.js.
+
+.field {
+  @apply flex flex-col;
+
+  &__label {
+    @apply mb-2 font-sans text-sm font-semibold;
+    color: var(--fg);
+  }
+
+  &__required {
+    color: var(--c-danger);
+  }
+
+  &__hint {
+    @apply mt-1.5 text-xs;
+    color: var(--fg-muted);
+  }
+
+  &__error {
+    @apply mt-1.5 text-xs font-medium;
+    color: var(--c-danger);
+  }
+
+  &__control {
+    @apply relative;
+  }
+
+  &__input,
+  &__input-inner {
+    @apply w-full font-sans text-base;
+    min-height: 3rem;
+    padding-inline: 1rem;
+    border-radius: var(--r-md);
+    border: 1px solid rgb(10 12 15 / 0.22);
+    background-color: var(--c-white);
+    color: var(--c-ink);
+    transition:
+      border-color $duration-fast $ease-out,
+      box-shadow $duration-fast $ease-out;
+
+    &::placeholder {
+      color: rgb(10 12 15 / 0.42);
+    }
+
+    &:hover {
+      border-color: rgb(10 12 15 / 0.5);
+    }
+
+    &:focus,
+    &:focus-within {
+      border-color: var(--c-ink);
+      box-shadow: var(--shadow-focus);
+      outline: none;
+    }
+
+    &[data-error],
+    &[aria-invalid='true'] {
+      border-color: var(--c-danger);
+    }
+
+    &:disabled,
+    &[data-disabled] {
+      @apply cursor-not-allowed opacity-60;
+      background-color: var(--c-paper-2);
+    }
+  }
+
+  &__input:is(textarea) {
+    padding-block: 0.85rem;
+    line-height: 1.55;
+  }
+
+  &__section {
+    color: var(--c-muted);
+  }
+
+  &__toggle {
+    color: var(--c-muted);
+  }
+}
+
+// Fields on dark surfaces
+.is-dark .field {
+  &__label {
+    color: var(--c-paper);
+  }
+
+  &__input {
+    background-color: rgb(255 255 255 / 0.06);
+    border-color: rgb(255 255 255 / 0.22);
+    color: var(--c-paper);
+
+    &::placeholder {
+      color: rgb(255 255 255 / 0.45);
+    }
+
+    &:hover {
+      border-color: rgb(255 255 255 / 0.5);
+    }
+
+    &:focus {
+      border-color: var(--c-accent);
+    }
+  }
+}
+
+// Select dropdown
+.dropdown {
+  @apply overflow-hidden rounded-md p-1.5 shadow-lg;
+  border: 1px solid var(--line);
+  background-color: var(--c-white);
+  color: var(--c-ink);
+
+  &__option {
+    @apply rounded-sm px-3 py-2.5 text-sm;
+
+    &[data-combobox-selected],
+    &[data-combobox-active] {
+      @apply bg-ink text-paper;
+    }
+
+    &:hover {
+      @apply bg-paper-2;
+    }
+  }
+}
+
+// Checkbox / Radio
+.choice {
+  &__body {
+    @apply items-start gap-3;
+  }
+
+  &__input {
+    border-radius: 6px;
+    border: 1px solid rgb(10 12 15 / 0.4);
+    background-color: var(--c-white);
+    cursor: pointer;
+
+    &:checked {
+      background-color: var(--c-ink);
+      border-color: var(--c-ink);
+    }
+
+    &[data-error] {
+      border-color: var(--c-danger);
+    }
+
+    &[type='radio'] {
+      border-radius: 50%;
+    }
+  }
+
+  &__icon {
+    color: var(--c-accent);
+  }
+
+  &__label {
+    @apply cursor-pointer text-sm;
+    color: var(--fg);
+    line-height: 1.5;
+
+    a {
+      @apply underline underline-offset-4;
+    }
+  }
+
+  &__error {
+    @apply text-xs;
+  }
+}
+
+// Segmented control (pill switch)
+.segmented {
+  @apply rounded-pill p-1;
+  background-color: var(--c-paper-2);
+  border: 1px solid var(--line);
+
+  &__indicator {
+    @apply rounded-pill bg-ink;
+    box-shadow: none;
+  }
+
+  &__control {
+    border: 0;
+  }
+
+  &__label {
+    @apply rounded-pill px-5 py-2 text-sm font-semibold;
+    color: var(--c-ink);
+    transition: color $duration-base $ease-out;
+
+    &[data-active] {
+      color: var(--c-paper);
+    }
+  }
+}
+
+// Form-level alert
+.form-alert {
+  @apply flex items-start gap-3 rounded-md border p-4 text-sm;
+
+  &__icon {
+    @apply mt-0.5 shrink-0;
+  }
+
+  &__title {
+    @apply font-semibold;
+  }
+
+  &__text {
+    color: inherit;
+    opacity: 0.9;
+  }
+
+  &--error {
+    border-color: rgb(184 50 28 / 0.35);
+    background-color: rgb(184 50 28 / 0.08);
+    color: #7e1f0f;
+  }
+
+  &--success {
+    border-color: rgb(31 122 77 / 0.35);
+    background-color: rgb(31 122 77 / 0.09);
+    color: #135234;
+  }
+
+  .is-dark &--error {
+    color: #ffb4a6;
+    background-color: rgb(184 50 28 / 0.2);
+  }
+
+  .is-dark &--success {
+    color: #b7f5d3;
+    background-color: rgb(31 122 77 / 0.25);
+  }
+}
+
+// Newsletter
+.newsletter {
+  @apply flex flex-col gap-3;
+
+  &__row {
+    @apply flex flex-col gap-3 sm:flex-row sm:items-start;
+
+    > :first-child {
+      @apply flex-1;
+    }
+  }
+
+  &__note {
+    @apply text-xs;
+    color: var(--fg-muted);
+  }
+}
+
+// Multi-column form grid helper (BEM-named, reusable by every form)
+.form-grid {
+  @apply grid gap-x-6 gap-y-5;
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__full {
+    @include up('md') {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__actions {
+    @apply flex flex-wrap items-center gap-4;
+  }
+}

@@ -1,0 +1,497 @@
+@use '../abstracts' as *;
+@use '../components/tag-input';
+
+// ═══ Apply: layout ════════════════════════════════════════════════════════
+.apply {
+  @apply grid gap-8;
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+
+  @include up('lg') {
+    grid-template-columns: 19rem minmax(0, 1fr);
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  // success screen: a single, centred column
+  &--done {
+    @include up('lg') {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__rail {
+    @apply flex flex-col gap-8;
+
+    @include up('lg') {
+      position: sticky;
+      top: calc(var(--header-h) + 1.5rem);
+    }
+  }
+
+  &__assurances {
+    @apply hidden flex-col gap-3 text-sm;
+    color: var(--fg-muted);
+
+    @include up('lg') {
+      @apply flex;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+
+    li {
+      @apply inline-flex items-center gap-3;
+    }
+
+    svg {
+      @apply shrink-0;
+      color: var(--c-accent-deep);
+    }
+  }
+
+  &__panel {
+    @apply flex min-w-0 flex-col gap-8 rounded-lg p-6;
+    background-color: var(--c-white);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
+
+    @include up('md') {
+      padding: clamp(2rem, 4vw, 3.5rem);
+    }
+  }
+
+  &__header {
+    @apply flex flex-col gap-2;
+    padding-bottom: 1.5rem;
+    @include hairline(bottom);
+  }
+
+  &__count {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.14em;
+    color: var(--c-accent-deep);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-3xl);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    outline: none;
+  }
+
+  &__hint {
+    color: var(--fg-muted);
+  }
+
+  &__actions {
+    @apply flex flex-col-reverse items-stretch gap-3 pt-2 sm:flex-row sm:items-center sm:justify-end;
+  }
+
+  &__notice {
+    @apply mb-6;
+
+    &--row {
+      @apply flex flex-col items-start gap-3 sm:flex-row sm:items-center;
+
+      > :first-child {
+        @apply flex-1;
+      }
+    }
+  }
+}
+
+.apply-fields {
+  @apply flex flex-col gap-8;
+}
+
+// ── Selected role banner ──────────────────────────────────────────────────
+.apply-role {
+  @apply mb-8 flex flex-col gap-4 rounded-lg p-5 sm:flex-row sm:items-center sm:justify-between;
+  background-color: var(--c-ink);
+  color: var(--c-paper);
+
+  &__label {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.14em;
+    color: var(--c-accent);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-2xl);
+    line-height: 1.1;
+    margin-block: 0.2rem;
+
+    a {
+      @apply no-underline;
+
+      &:hover {
+        text-decoration: underline;
+        text-underline-offset: 5px;
+      }
+    }
+  }
+
+  &__meta {
+    @apply text-sm;
+    color: var(--c-muted-on-ink);
+  }
+
+  .btn--secondary {
+    @apply border-white/30 text-paper;
+    flex-shrink: 0;
+    align-self: flex-start;
+
+    &:hover:not(:disabled) {
+      @apply border-accent bg-accent text-ink;
+    }
+  }
+}
+
+// ═══ Step progress ════════════════════════════════════════════════════════
+.apply-steps {
+  &__mobile {
+    @apply mb-4 flex items-baseline justify-between gap-4 text-sm;
+
+    span {
+      @apply font-mono text-xs uppercase;
+      letter-spacing: 0.14em;
+      color: var(--fg-muted);
+    }
+
+    strong {
+      @apply font-semibold;
+    }
+
+    @include up('lg') {
+      @apply hidden;
+    }
+  }
+
+  &__list {
+    @apply grid grid-cols-4 gap-1.5;
+
+    @include up('lg') {
+      @apply flex flex-col gap-0;
+    }
+  }
+
+  &__item {
+    @apply relative;
+
+    // mobile: segmented bar
+    &::before {
+      content: '';
+      @apply block h-1 rounded-pill;
+      background-color: var(--c-paper-3);
+      transition: background-color $duration-base $ease-out;
+
+      @include up('lg') {
+        @apply absolute bottom-0 left-4 top-10 h-auto w-px rounded-none;
+        background-color: var(--c-paper-3);
+      }
+    }
+
+    &:last-child::before {
+      @include up('lg') {
+        display: none;
+      }
+    }
+
+    &.is-active::before,
+    &.is-done::before {
+      background-color: var(--c-ink);
+    }
+
+    &.is-done::before {
+      @include up('lg') {
+        background-color: var(--c-accent-deep);
+      }
+    }
+
+    &.is-active::before {
+      @include up('lg') {
+        background-color: var(--c-paper-3);
+      }
+    }
+  }
+
+  // Mobile shows only the segmented bar + summary line; the full list is for lg+.
+  &__btn {
+    @apply hidden w-full text-left;
+    @include focus-ring;
+    background: none;
+    border: 0;
+    padding: 0;
+    color: inherit;
+
+    @include up('lg') {
+      @apply flex items-start gap-4 pb-8;
+    }
+  }
+
+  button.apply-steps__btn {
+    cursor: pointer;
+  }
+
+  &__marker {
+    @apply hidden shrink-0 place-items-center rounded-pill font-mono text-xs;
+    width: 2rem;
+    height: 2rem;
+    border: 1.5px solid var(--c-paper-3);
+    background-color: var(--c-paper);
+    color: var(--c-muted);
+    transition:
+      background-color $duration-base $ease-out,
+      border-color $duration-base $ease-out,
+      color $duration-base $ease-out;
+
+    @include up('lg') {
+      @apply grid;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  &__item.is-active &__marker {
+    @apply border-ink bg-ink text-accent;
+  }
+
+  &__item.is-done &__marker {
+    @apply border-accent bg-accent text-ink;
+  }
+
+  &__text {
+    @apply hidden flex-col gap-0.5;
+
+    @include up('lg') {
+      @apply flex;
+      padding-top: 0.15rem;
+    }
+  }
+
+  &__label {
+    @apply text-base font-semibold;
+    color: var(--c-muted);
+  }
+
+  &__item.is-active &__label,
+  &__item.is-done &__label {
+    color: var(--c-ink);
+  }
+
+  &__hint {
+    @apply text-sm;
+    color: var(--fg-muted);
+  }
+
+  &__item:not(.is-active) &__hint {
+    @apply hidden;
+  }
+}
+
+// ═══ Work status cards ════════════════════════════════════════════════════
+.work-cards {
+  @apply m-0 min-w-0 border-0 p-0;
+
+  &__grid {
+    @apply grid gap-3;
+
+    @include up('sm') {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
+.work-card {
+  @apply relative flex cursor-pointer flex-col gap-2 rounded-lg p-5;
+  border: 1.5px solid rgb(10 12 15 / 0.2);
+  background-color: var(--c-white);
+  transition:
+    border-color $duration-base $ease-out,
+    background-color $duration-base $ease-out,
+    box-shadow $duration-base $ease-out,
+    transform $duration-base $ease-out;
+
+  &:hover {
+    border-color: var(--c-ink);
+  }
+
+  &.is-selected {
+    border-color: var(--c-ink);
+    background-color: var(--c-paper);
+    box-shadow:
+      0 0 0 3px var(--c-accent),
+      var(--shadow-sm);
+  }
+
+  &.is-invalid {
+    border-color: var(--c-danger);
+  }
+
+  &:has(&__input:focus-visible) {
+    box-shadow: var(--shadow-focus);
+    outline: 2px solid var(--c-ink);
+    outline-offset: 2px;
+  }
+
+  &__input {
+    @include visually-hidden;
+  }
+
+  &__icon {
+    @apply mb-2 grid h-12 w-12 place-items-center rounded-pill;
+    background-color: var(--c-paper-2);
+    color: var(--c-ink);
+    transition:
+      background-color $duration-base $ease-out,
+      color $duration-base $ease-out;
+  }
+
+  &.is-selected &__icon {
+    @apply bg-ink text-accent;
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-xl);
+    line-height: 1.1;
+  }
+
+  &__text {
+    @apply text-sm;
+    color: var(--fg-muted);
+    line-height: 1.45;
+  }
+}
+
+// ═══ Review summary ═══════════════════════════════════════════════════════
+.review {
+  &__role {
+    @apply flex flex-wrap items-center gap-3 text-base;
+  }
+
+  &__group {
+    @apply rounded-lg p-5;
+    background-color: var(--c-paper);
+    border: 1px solid var(--line);
+  }
+
+  &__head {
+    @apply mb-3 flex items-baseline justify-between gap-4;
+  }
+
+  &__title {
+    @apply font-mono text-xs font-medium uppercase;
+    letter-spacing: 0.14em;
+    font-family: var(--ff-mono);
+    color: var(--c-accent-deep);
+  }
+
+  &__edit {
+    @apply text-sm font-semibold;
+  }
+
+  &__list {
+    @apply flex flex-col;
+  }
+
+  &__row {
+    @apply grid gap-1 py-2.5 text-sm sm:grid-cols-[9rem_1fr] sm:gap-4;
+    border-top: 1px solid var(--line);
+
+    dt {
+      color: var(--fg-muted);
+    }
+
+    dd {
+      @apply font-medium;
+      overflow-wrap: anywhere;
+      white-space: pre-line;
+    }
+  }
+}
+
+// ═══ Success ══════════════════════════════════════════════════════════════
+.apply-success {
+  @apply mx-auto flex max-w-3xl flex-col gap-6 rounded-lg p-8 md:p-14;
+  background-color: var(--c-white);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-md);
+
+  &__badge {
+    @apply grid h-16 w-16 place-items-center rounded-pill bg-accent text-ink;
+    box-shadow: 0 0 0 8px rgb(201 247 58 / 0.25);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-4xl);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+    outline: none;
+
+    em {
+      @apply italic;
+      color: var(--c-accent-deep);
+    }
+  }
+
+  &__lead {
+    @apply text-lg;
+    color: var(--fg-muted);
+    max-width: 52ch;
+  }
+
+  &__heading {
+    @apply mt-4 font-mono text-xs uppercase;
+    font-family: var(--ff-mono);
+    letter-spacing: 0.14em;
+    color: var(--fg-muted);
+  }
+
+  &__steps {
+    @apply flex flex-col;
+  }
+
+  &__step {
+    @apply flex gap-5 py-5;
+    border-top: 1px solid var(--line);
+
+    &:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+  }
+
+  &__num {
+    @apply shrink-0 font-mono text-sm;
+    color: var(--c-accent-deep);
+    padding-top: 0.15rem;
+  }
+
+  &__step-title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-xl);
+    line-height: 1.15;
+  }
+
+  &__step-text {
+    @apply mt-1;
+    color: var(--fg-muted);
+    max-width: 52ch;
+  }
+
+  &__actions {
+    @apply flex flex-wrap gap-3;
+  }
+
+  &__note {
+    @apply text-sm;
+    color: var(--fg-muted);
+
+    a {
+      @apply underline underline-offset-4;
+    }
+  }
+}

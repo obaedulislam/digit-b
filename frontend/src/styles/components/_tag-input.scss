@@ -1,0 +1,78 @@
+@use '../abstracts' as *;
+
+// Tag-style input (TagInput). Re-uses the .field label/hint/error parts.
+.tag-input {
+  @apply flex flex-wrap items-center gap-2;
+  min-height: 3rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--r-md);
+  border: 1px solid rgb(10 12 15 / 0.22);
+  background-color: var(--c-white);
+  transition:
+    border-color $duration-fast $ease-out,
+    box-shadow $duration-fast $ease-out;
+
+  &:hover {
+    border-color: rgb(10 12 15 / 0.5);
+  }
+
+  &:focus-within {
+    border-color: var(--c-ink);
+    box-shadow: var(--shadow-focus);
+  }
+
+  &.is-invalid {
+    border-color: var(--c-danger);
+  }
+
+  &__list {
+    @apply contents;
+  }
+
+  &__tag {
+    @apply inline-flex items-center gap-1.5 rounded-pill py-1 pl-3 pr-1.5 text-sm font-medium;
+    background-color: var(--c-paper-2);
+    border: 1px solid var(--line);
+    max-width: 100%;
+
+    > span {
+      @apply truncate;
+    }
+  }
+
+  &__remove {
+    @apply grid h-5 w-5 shrink-0 place-items-center rounded-pill;
+    @include focus-ring;
+    background: transparent;
+    border: 0;
+    color: var(--c-muted);
+    cursor: pointer;
+
+    &:hover {
+      @apply bg-ink text-paper;
+    }
+  }
+
+  &__field {
+    @apply flex-1 bg-transparent font-sans text-base;
+    min-width: 8rem;
+    min-height: 2.2rem;
+    border: 0;
+    padding: 0 0.4rem;
+    outline: none;
+    color: var(--c-ink);
+
+    &::placeholder {
+      color: rgb(10 12 15 / 0.42);
+    }
+
+    &:disabled {
+      @apply cursor-not-allowed;
+    }
+  }
+
+  &__count {
+    @apply ml-1 font-mono;
+    color: var(--c-muted);
+  }
+}

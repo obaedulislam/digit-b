@@ -1,0 +1,146 @@
+@use '../abstracts' as *;
+@use '../components/catalog';
+@use 'about'; // shares .about-title / .about-prose / .about-faq
+
+// Mentorship page.
+
+.mentor-audiences {
+  @apply grid gap-5;
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.mentor-audience {
+  @apply flex flex-col gap-4 rounded-xl border p-8;
+  border-color: var(--line);
+  background-color: var(--c-white);
+
+  &__icon {
+    @apply grid h-14 w-14 place-items-center rounded-pill bg-accent text-ink;
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-3xl);
+    line-height: 1;
+  }
+
+  &__lead {
+    @apply font-mono text-xs uppercase;
+    letter-spacing: 0.1em;
+    color: var(--c-accent-deep);
+  }
+
+  &__points {
+    @apply mt-2 flex flex-col gap-3;
+    color: var(--fg-muted);
+
+    li {
+      @apply border-t pt-3;
+      border-color: var(--line);
+    }
+  }
+}
+
+.mentor-steps {
+  @apply grid gap-x-8 gap-y-2;
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up('lg') {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  &__item {
+    @apply flex flex-col gap-3 py-8;
+    border-top: 1px solid var(--line);
+
+    p {
+      @apply text-sm;
+      color: var(--fg-muted);
+    }
+  }
+
+  &__index {
+    @apply font-mono;
+    font-size: var(--fs-2xl);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--c-accent);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-xl);
+    line-height: 1.1;
+  }
+}
+
+.mentor-request {
+  @apply grid items-start gap-12;
+
+  @include up('lg') {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 5rem;
+  }
+
+  &__intro {
+    @apply flex flex-col items-start gap-6;
+
+    > p {
+      @apply max-w-md text-lg;
+      color: var(--fg-muted);
+    }
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-4xl);
+    line-height: 1;
+    letter-spacing: -0.02em;
+
+    em {
+      @apply italic;
+      color: var(--c-accent-deep);
+    }
+  }
+
+  &__next {
+    @apply flex flex-col gap-3 text-sm;
+    color: var(--fg-muted);
+
+    li {
+      @apply flex gap-3 border-t pt-3;
+      border-color: var(--line);
+
+      &::before {
+        content: '→';
+        color: var(--c-accent-deep);
+      }
+    }
+  }
+
+  &__form {
+    @apply rounded-xl border p-6;
+    border-color: var(--line);
+    background-color: var(--c-white);
+
+    @include up('md') {
+      @apply p-10;
+    }
+  }
+}
+
+.request-form {
+  &__done {
+    @apply flex flex-col items-start gap-5;
+  }
+
+  &__status {
+    color: var(--fg-muted);
+  }
+}

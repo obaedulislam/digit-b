@@ -1,0 +1,8 @@
+/*
+ * Used ONLY by secondary entries (e.g. admin.scss) via `@reference`, so their
+ * partials can `@apply` design-token utilities without re-emitting the
+ * Tailwind base, preflight or Mantine CSS that main.scss already ships.
+ */
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import './theme.css';

@@ -1,0 +1,199 @@
+@use '../abstracts' as *;
+
+.contact {
+  &__layout {
+    @apply grid gap-14;
+
+    @include up('lg') {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: start;
+    }
+  }
+
+  &__side {
+    @apply flex flex-col gap-8;
+
+    @include up('lg') {
+      position: sticky;
+      top: calc(var(--header-h) + 1.5rem);
+    }
+  }
+
+  &__heading {
+    font-family: var(--ff-display);
+    font-size: var(--fs-2xl);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+  }
+
+  &__form-wrap {
+    @apply flex flex-col gap-8 rounded-lg p-6;
+    background-color: var(--c-white);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
+
+    @include up('md') {
+      padding: clamp(2rem, 4vw, 3.5rem);
+    }
+  }
+}
+
+// ── Detail cards ──────────────────────────────────────────────────────────
+.contact-cards {
+  @apply grid gap-4 sm:grid-cols-2 lg:grid-cols-1;
+
+  @include up('xl') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.contact-card {
+  @apply relative flex flex-col gap-1.5 rounded-lg p-5;
+  background-color: var(--c-paper-2);
+  min-width: 0;
+
+  &__icon {
+    @apply mb-2;
+    color: var(--c-accent-deep);
+  }
+
+  &__label {
+    @apply font-mono text-xs font-medium uppercase;
+    font-family: var(--ff-mono);
+    letter-spacing: 0.14em;
+    color: var(--fg-muted);
+  }
+
+  &__value {
+    @apply not-italic;
+    font-size: var(--fs-lg);
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+
+    &--link {
+      @apply no-underline;
+      @include focus-ring;
+
+      &:hover {
+        text-decoration: underline;
+        text-decoration-color: var(--c-accent-strong);
+        text-decoration-thickness: 3px;
+        text-underline-offset: 5px;
+      }
+    }
+  }
+
+  &__line {
+    @apply block;
+  }
+
+  &__more {
+    @apply mt-1 inline-flex items-center gap-1 text-sm font-semibold underline underline-offset-4;
+    color: var(--c-accent-deep);
+  }
+}
+
+.contact-hours {
+  @apply flex flex-col gap-1 text-base;
+
+  &__row {
+    @apply flex justify-between gap-4;
+  }
+
+  dt {
+    color: var(--fg-muted);
+  }
+
+  dd {
+    @apply font-medium;
+  }
+}
+
+.contact-social {
+  @apply flex items-center gap-2 sm:col-span-2 lg:col-span-1 xl:col-span-2;
+
+  &__link {
+    @apply grid h-11 w-11 place-items-center rounded-pill border;
+    @include focus-ring;
+    border-color: var(--line);
+    transition:
+      background-color $duration-fast $ease-out,
+      color $duration-fast $ease-out;
+
+    &:hover {
+      @apply border-ink bg-ink text-paper;
+    }
+  }
+}
+
+// ── Shortcuts ─────────────────────────────────────────────────────────────
+.contact-shortcuts {
+  @apply flex flex-col gap-3;
+}
+
+.contact-shortcut {
+  @apply flex items-center justify-between gap-4 rounded-lg px-5 py-4 no-underline;
+  @include focus-ring;
+  background-color: var(--c-ink);
+  color: var(--c-paper);
+  transition:
+    background-color $duration-base $ease-out,
+    color $duration-base $ease-out;
+
+  &:hover {
+    @apply bg-accent text-ink;
+  }
+
+  &__text {
+    @apply flex flex-col;
+
+    strong {
+      font-family: var(--ff-display);
+      font-size: var(--fs-xl);
+      font-weight: 400;
+      line-height: 1.15;
+    }
+
+    span {
+      @apply text-sm opacity-75;
+    }
+  }
+}
+
+// ── Form + success ────────────────────────────────────────────────────────
+.contact-form {
+  @apply flex flex-col gap-6;
+}
+
+.contact-success {
+  @apply flex flex-col items-start gap-5 py-6;
+
+  &__badge {
+    @apply grid h-16 w-16 place-items-center rounded-pill bg-accent text-ink;
+    box-shadow: 0 0 0 8px rgb(201 247 58 / 0.25);
+  }
+
+  &__title {
+    font-family: var(--ff-display);
+    font-size: var(--fs-4xl);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    outline: none;
+
+    em {
+      @apply italic;
+      color: var(--c-accent-deep);
+    }
+  }
+
+  &__text {
+    @apply text-lg;
+    color: var(--fg-muted);
+    max-width: 48ch;
+  }
+
+  &__actions {
+    @apply flex flex-wrap gap-3;
+  }
+}
